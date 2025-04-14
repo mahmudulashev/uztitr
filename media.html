@@ -5,169 +5,228 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Media Hub</title>
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #f8f8f8; }
+    body { font-family: sans-serif; margin: 0; background: #f4f4f4; }
     header { background: #222; color: #fff; padding: 1rem; text-align: center; font-size: 1.5rem; }
-    nav { display: flex; justify-content: center; gap: 1rem; background: #444; padding: 1rem; flex-wrap: wrap; }
-    nav a, .pagination button {
-      color: white; text-decoration: none; padding: 0.5rem 1rem;
-      background: #666; border-radius: 8px; border: none; cursor: pointer;
-    }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; background: #444; padding: 1rem; }
+    nav a, nav input { color: white; text-decoration: none; background: #666; padding: 0.5rem 1rem; border-radius: 8px; }
+    nav input { background: white; color: black; border: 1px solid #ccc; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; padding: 1rem; }
-    .card {
-      background: white; border-radius: 10px; overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer;
-    }
+    .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; }
     .card img { width: 100%; height: 220px; object-fit: cover; }
     .card h4 { padding: 0.5rem; margin: 0; font-size: 1rem; text-align: center; }
     .details { padding: 1rem; }
     .details img { width: 200px; float: left; margin-right: 1rem; border-radius: 10px; }
     .details h2 { margin-top: 0; }
     .buttons { margin-top: 1rem; }
-    .buttons button {
-      margin-right: 1rem; padding: 0.5rem 1rem; border: none;
-      border-radius: 6px; cursor: pointer; background: #0084ff; color: white;
-    }
-    .pagination {
-      display: flex; justify-content: center; gap: 1rem; margin: 1rem;
-    }
+    .buttons button { margin-right: 1rem; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; background: #0084ff; color: white; }
+    .pagination { text-align: center; margin-bottom: 1rem; }
+    .pagination button { margin: 0 5px; padding: 0.5rem 1rem; border-radius: 6px; background: #444; color: white; border: none; cursor: pointer; }
   </style>
 </head>
 <body>
   <header>📚🎬 Media Hub</header>
   <nav>
-    <a href="#" onclick="loadMovies()">🎬 Filmlar</a>
+    <a href="#" onclick="setCategory('movies')">🎬 Filmlar</a>
+    <a href="#" onclick="setCategory('series')">📺 Seriallar</a>
     <a href="#" onclick="showWatchlist()">⭐ Watchlist</a>
     <a href="#" onclick="showSeenList()">✅ Ko‘rilganlar</a>
-    <input type="text" id="searchInput" placeholder="Qidirish..." onkeyup="searchMovies()" style="padding: 0.5rem; border-radius: 6px; border: 1px solid #ccc;" />
+    <input type="text" id="searchInput" placeholder="Qidirish..." onkeyup="searchAll()" />
   </nav>
-
   <div id="content" class="grid"></div>
-  <div class="pagination">
-    <button onclick="prevPage()">⬅ Oldingi</button>
-    <span id="pageIndicator">1 / 100</span>
-    <button onclick="nextPage()">Keyingi ➡</button>
-  </div>
+  <div class="pagination" id="pagination"></div>
 
   <script>
-    const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d';
-    const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+    const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d'; // <-- Shu yerga o‘z TMDB API kalitingizni yozing
+    let currentCategory = 'movies';
     let currentPage = 1;
-    let movies = [];
-    let watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
-    let seenList = JSON.parse(localStorage.getItem('seenList') || '[]');
+    let totalPages = 1;
 
-    async function fetchMovies(page) {
-      movies = [];
-      const startPage = (page - 1) * 3 + 1;
-      const promises = [];
+    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    const seenList = JSON.parse(localStorage.getItem('seenList') || '[]');
 
-      for (let i = 0; i < 3; i++) {
-        promises.push(
-          fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc&vote_count.gte=1000&page=${startPage + i}`)
-        );
-      }
-
-      const responses = await Promise.all(promises);
-      for (const res of responses) {
-        const data = await res.json();
-        movies.push(...data.results);
-      }
-
-      movies = movies.slice(0, 50);
-      renderMovies();
+    function setCategory(category) {
+      currentCategory = category;
+      currentPage = 1;
+      loadData();
     }
 
-    function renderMovies() {
+    function showList(items) {
       const content = document.getElementById('content');
       content.className = 'grid';
       content.innerHTML = '';
-      document.getElementById('pageIndicator').textContent = `${currentPage} / 10`;
-
-      movies.forEach(movie => {
+      items.forEach(item => {
+        const title = item.title || item.name;
+        const poster = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
         const card = document.createElement('div');
         card.className = 'card';
-        card.onclick = () => showDetails(movie);
-        card.innerHTML = `
-          <img src="${IMG_URL + movie.poster_path}" alt="Poster">
-          <h4>${movie.title}</h4>
-        `;
+        card.innerHTML = `<img src="${poster}" alt="Poster"><h4>${title}</h4>`;
+        card.onclick = () => showDetails(item);
         content.appendChild(card);
       });
     }
 
-    function showDetails(movie) {
+    function renderPagination() {
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      // Back button
+      const backButton = document.createElement('button');
+      backButton.innerText = '⬅️ Back';
+      backButton.disabled = currentPage === 1;
+      backButton.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          loadData();
+        }
+      };
+      pagination.appendChild(backButton);
+
+      // Page indicator
+      const pageIndicator = document.createElement('span');
+      pageIndicator.innerText = `Sahifa ${currentPage} / ${totalPages}`;
+      pageIndicator.style.margin = '0 10px';
+      pagination.appendChild(pageIndicator);
+
+      // Next button
+      const nextButton = document.createElement('button');
+      nextButton.innerText = 'Next ➡️';
+      nextButton.disabled = currentPage === totalPages;
+      nextButton.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          loadData();
+        }
+      };
+      pagination.appendChild(nextButton);
+    }
+
+    function showDetails(item) {
+      const title = item.title || item.name;
+      const poster = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
+      const overview = item.overview || 'Hech qanday ma’lumot yo‘q';
+      const year = item.release_date || item.first_air_date || 'Noma’lum';
+      const rating = item.vote_average || 'Noma’lum';
+      const votes = item.vote_count || '0';
+
       const content = document.getElementById('content');
       content.className = '';
       content.innerHTML = `
         <div class="details">
-          <img src="${IMG_URL + movie.poster_path}" alt="Poster">
-          <h2>${movie.title}</h2>
-          <p><strong>Chiqqan yili:</strong> ${movie.release_date}</p>
-          <p><strong>Ovozlar:</strong> ${movie.vote_average} (${movie.vote_count} ovoz)</p>
-          <p><strong>Qisqacha:</strong> ${movie.overview}</p>
+          <img src="${poster}" alt="Poster">
+          <h2>${title}</h2>
+          <p><strong>Yili:</strong> ${year}</p>
+          <p><strong>Reyting:</strong> ${rating}</p>
+          <p><strong>Ovozlar:</strong> ${votes}</p>
+          <p><strong>Qisqacha:</strong> ${overview}</p>
           <div class="buttons">
-            <button onclick="addToList('watchlist', ${movie.id})">⭐ Watchlist</button>
-            <button onclick="addToList('seenList', ${movie.id})">✅ Ko‘rganman</button>
+            <button onclick="addToList('watchlist', ${encodeURIComponent(JSON.stringify(item))})">⭐ Watchlist</button>
+            <button onclick="addToList('seenList', ${encodeURIComponent(JSON.stringify(item))})">✅ Ko‘rganman</button>
           </div>
         </div>
       `;
     }
 
-    function addToList(listName, id) {
-      const list = listName === 'watchlist' ? watchlist : seenList;
-      const movie = movies.find(m => m.id === id);
-      if (!list.find(m => m.id === id)) list.push(movie);
-      localStorage.setItem(listName, JSON.stringify(list));
-      alert('Qo‘shildi!');
+    function addToList(listName, rawItem) {
+      const item = JSON.parse(decodeURIComponent(rawItem));
+      const data = listName === 'watchlist' ? watchlist : seenList;
+      if (!data.find(x => x.id === item.id)) {
+        data.push(item);
+        localStorage.setItem(listName, JSON.stringify(data));
+        alert(`${item.title || item.name} qo‘shildi!`);
+      }
     }
 
     function showWatchlist() {
-      movies = watchlist;
-      renderMovies();
+      showSavedList('watchlist');
     }
 
     function showSeenList() {
-      movies = seenList;
-      renderMovies();
+      showSavedList('seenList');
     }
 
-    function searchMovies() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = movies.filter(movie => movie.title.toLowerCase().includes(query));
+    function showSavedList(name) {
+      const data = JSON.parse(localStorage.getItem(name) || '[]');
       const content = document.getElementById('content');
+      content.className = 'grid';
       content.innerHTML = '';
-      filtered.forEach(movie => {
+      data.forEach(item => {
+        const title = item.title || item.name;
+        const poster = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
         const card = document.createElement('div');
         card.className = 'card';
-        card.onclick = () => showDetails(movie);
         card.innerHTML = `
-          <img src="${IMG_URL + movie.poster_path}" alt="Poster">
-          <h4>${movie.title}</h4>
+          <img src="${poster}" alt="Poster">
+          <h4>${title}</h4>
+          <button onclick="removeFromList('${name}', ${item.id})">❌ O‘chirish</button>
         `;
         content.appendChild(card);
       });
     }
 
-    function prevPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        fetchMovies(currentPage);
+    function removeFromList(name, id) {
+      let data = JSON.parse(localStorage.getItem(name) || '[]');
+      data = data.filter(x => x.id !== id);
+      localStorage.setItem(name, JSON.stringify(data));
+      name === 'watchlist' ? showWatchlist() : showSeenList();
+    }
+
+    function searchAll() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (query.length < 2) return;
+
+      const url = currentCategory === 'movies'
+        ? `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+        : `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          totalPages = 1;
+          showList(data.results);
+          document.getElementById('pagination').innerHTML = '';
+        });
+    }
+
+    function loadData() {
+      const url = currentCategory === 'movies'
+        ? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=${currentPage}`
+        : `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc&page=${currentPage}`;
+    
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          totalPages = data.total_pages > 500 ? 500 : data.total_pages; // TMDB maximum 500 sahifa
+          showList(data.results);
+          renderPagination();
+        });
+    }
+
+    async function loadData() {
+      const urls = [0, 1, 2].map(i => {
+        const pageNum = currentPage * 3 - 2 + i;
+        const base = currentCategory === 'movies'
+          ? `https://api.themoviedb.org/3/discover/movie`
+          : `https://api.themoviedb.org/3/discover/tv`;
+        return `${base}?api_key=${API_KEY}&sort_by=popularity.desc&page=${pageNum}`;
+      });
+    
+      const allResults = [];
+    
+      for (let url of urls) {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.results) allResults.push(...data.results);
       }
+    
+      totalPages = Math.floor(500 / 3); // chunki biz har bir sahifada 3 ta page yuklayapmiz
+      showList(allResults);
+      renderPagination();
     }
+    
+    
 
-    function nextPage() {
-      if (currentPage < 100) {
-        currentPage++;
-        fetchMovies(currentPage);
-      }
-    }
-
-    function loadMovies() {
-      currentPage = 1;
-      fetchMovies(currentPage);
-    }
-
-    loadMovies();
+    setCategory('movies'); // default
   </script>
 </body>
 </html>
+``` 
