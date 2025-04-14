@@ -36,11 +36,12 @@
   <div class="pagination" id="pagination"></div>
 
   <script>
-    const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d'; // <-- Shu yerga o‘z TMDB API kalitingizni yozing
+    const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d'; // <-- Replace with your TMDB API key
     let currentCategory = 'movies';
     let currentPage = 1;
     let totalPages = 1;
 
+    // Retrieve Watchlist and SeenList from localStorage or set as empty arrays
     const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
     const seenList = JSON.parse(localStorage.getItem('seenList') || '[]');
 
@@ -48,6 +49,20 @@
       currentCategory = category;
       currentPage = 1;
       loadData();
+    }
+
+    function loadData() {
+      const url = currentCategory === 'movies'
+        ? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc&vote_count.gte=500&vote_count.gt=1&page=${currentPage}&per_page=60`
+        : `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=vote_average.desc&vote_count.gte=500&vote_count.gt=1&page=${currentPage}&per_page=60`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          totalPages = data.total_pages;
+          showList(data.results);
+          renderPagination();
+        });
     }
 
     function showList(items) {
@@ -69,7 +84,6 @@
       const pagination = document.getElementById('pagination');
       pagination.innerHTML = '';
 
-      // Back button
       const backButton = document.createElement('button');
       backButton.innerText = '⬅️ Back';
       backButton.disabled = currentPage === 1;
@@ -81,13 +95,11 @@
       };
       pagination.appendChild(backButton);
 
-      // Page indicator
       const pageIndicator = document.createElement('span');
       pageIndicator.innerText = `Sahifa ${currentPage} / ${totalPages}`;
       pageIndicator.style.margin = '0 10px';
       pagination.appendChild(pageIndicator);
 
-      // Next button
       const nextButton = document.createElement('button');
       nextButton.innerText = 'Next ➡️';
       nextButton.disabled = currentPage === totalPages;
@@ -119,20 +131,27 @@
           <p><strong>Ovozlar:</strong> ${votes}</p>
           <p><strong>Qisqacha:</strong> ${overview}</p>
           <div class="buttons">
-            <button onclick="addToList('watchlist', ${encodeURIComponent(JSON.stringify(item))})">⭐ Watchlist</button>
-            <button onclick="addToList('seenList', ${encodeURIComponent(JSON.stringify(item))})">✅ Ko‘rganman</button>
+            <button onclick="addToList('watchlist', ${JSON.stringify(item)})">⭐ Watchlist</button>
+            <button onclick="addToList('seenList', ${JSON.stringify(item)})">✅ Ko‘rganman</button>
           </div>
         </div>
       `;
     }
 
-    function addToList(listName, rawItem) {
-      const item = JSON.parse(decodeURIComponent(rawItem));
-      const data = listName === 'watchlist' ? watchlist : seenList;
+    function addToList(listName, item) {
+      let data = JSON.parse(localStorage.getItem(listName) || '[]');
       if (!data.find(x => x.id === item.id)) {
         data.push(item);
-        localStorage.setItem(listName, JSON.stringify(data));
+        localStorage.setItem(listName, JSON.stringify(data)); // Save to localStorage
         alert(`${item.title || item.name} qo‘shildi!`);
+      } else {
+        alert(`${item.title || item.name} allaqachon mavjud!`);
+      }
+
+      if (listName === 'watchlist') {
+        showWatchlist(); // Show updated Watchlist
+      } else {
+        showSeenList(); // Show updated Seen List
       }
     }
 
@@ -144,8 +163,8 @@
       showSavedList('seenList');
     }
 
-    function showSavedList(name) {
-      const data = JSON.parse(localStorage.getItem(name) || '[]');
+    function showSavedList(listName) {
+      const data = JSON.parse(localStorage.getItem(listName) || '[]');
       const content = document.getElementById('content');
       content.className = 'grid';
       content.innerHTML = '';
@@ -157,17 +176,17 @@
         card.innerHTML = `
           <img src="${poster}" alt="Poster">
           <h4>${title}</h4>
-          <button onclick="removeFromList('${name}', ${item.id})">❌ O‘chirish</button>
+          <button onclick="removeFromList('${listName}', ${item.id})">❌ O‘chirish</button>
         `;
         content.appendChild(card);
       });
     }
 
-    function removeFromList(name, id) {
-      let data = JSON.parse(localStorage.getItem(name) || '[]');
-      data = data.filter(x => x.id !== id);
-      localStorage.setItem(name, JSON.stringify(data));
-      name === 'watchlist' ? showWatchlist() : showSeenList();
+    function removeFromList(listName, id) {
+      let data = JSON.parse(localStorage.getItem(listName) || '[]');
+      data = data.filter(x => x.id !== id); // Remove item from list
+      localStorage.setItem(listName, JSON.stringify(data)); // Save updated list to localStorage
+      listName === 'watchlist' ? showWatchlist() : showSeenList();
     }
 
     function searchAll() {
@@ -187,46 +206,11 @@
         });
     }
 
-    function loadData() {
-      const url = currentCategory === 'movies'
-        ? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=${currentPage}`
-        : `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc&page=${currentPage}`;
-    
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          totalPages = data.total_pages > 500 ? 500 : data.total_pages; // TMDB maximum 500 sahifa
-          showList(data.results);
-          renderPagination();
-        });
-    }
-
-    async function loadData() {
-      const urls = [0, 1, 2].map(i => {
-        const pageNum = currentPage * 3 - 2 + i;
-        const base = currentCategory === 'movies'
-          ? `https://api.themoviedb.org/3/discover/movie`
-          : `https://api.themoviedb.org/3/discover/tv`;
-        return `${base}?api_key=${API_KEY}&sort_by=popularity.desc&page=${pageNum}`;
-      });
-    
-      const allResults = [];
-    
-      for (let url of urls) {
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.results) allResults.push(...data.results);
-      }
-    
-      totalPages = Math.floor(500 / 3); // chunki biz har bir sahifada 3 ta page yuklayapmiz
-      showList(allResults);
-      renderPagination();
-    }
-    
-    
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData(); // Initial data load for movies/series
+    });
 
     setCategory('movies'); // default
   </script>
 </body>
 </html>
-``` 
