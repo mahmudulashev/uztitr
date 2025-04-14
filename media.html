@@ -2,160 +2,172 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Media Hub</title>
   <style>
     body { font-family: sans-serif; margin: 0; padding: 0; background: #f8f8f8; }
     header { background: #222; color: #fff; padding: 1rem; text-align: center; font-size: 1.5rem; }
-    nav { display: flex; justify-content: center; gap: 1rem; background: #444; padding: 1rem; }
-    nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; background: #666; border-radius: 8px; }
+    nav { display: flex; justify-content: center; gap: 1rem; background: #444; padding: 1rem; flex-wrap: wrap; }
+    nav a, .pagination button {
+      color: white; text-decoration: none; padding: 0.5rem 1rem;
+      background: #666; border-radius: 8px; border: none; cursor: pointer;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; padding: 1rem; }
-    .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; }
+    .card {
+      background: white; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer;
+    }
     .card img { width: 100%; height: 220px; object-fit: cover; }
     .card h4 { padding: 0.5rem; margin: 0; font-size: 1rem; text-align: center; }
     .details { padding: 1rem; }
     .details img { width: 200px; float: left; margin-right: 1rem; border-radius: 10px; }
     .details h2 { margin-top: 0; }
     .buttons { margin-top: 1rem; }
-    .buttons button { margin-right: 1rem; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; background: #0084ff; color: white; }
+    .buttons button {
+      margin-right: 1rem; padding: 0.5rem 1rem; border: none;
+      border-radius: 6px; cursor: pointer; background: #0084ff; color: white;
+    }
+    .pagination {
+      display: flex; justify-content: center; gap: 1rem; margin: 1rem;
+    }
   </style>
 </head>
 <body>
   <header>📚🎬 Media Hub</header>
   <nav>
-    <a href="#" onclick="showCategory('series')">📺 Seriallar</a>
-    <a href="#" onclick="showCategory('movies')">🎬 Filmlar</a>
-    <a href="#" onclick="showCategory('books')">📖 Kitoblar</a>
-    <a href="#" onclick="showCategory('manga')">📚 Mangalar</a>
+    <a href="#" onclick="loadMovies()">🎬 Filmlar</a>
     <a href="#" onclick="showWatchlist()">⭐ Watchlist</a>
     <a href="#" onclick="showSeenList()">✅ Ko‘rilganlar</a>
-    <input type="text" id="searchInput" placeholder="Qidirish..." style="padding: 0.5rem; border-radius: 6px; border: 1px solid #ccc;" onkeyup="searchMovies()" />
+    <input type="text" id="searchInput" placeholder="Qidirish..." onkeyup="searchMovies()" style="padding: 0.5rem; border-radius: 6px; border: 1px solid #ccc;" />
   </nav>
 
   <div id="content" class="grid"></div>
+  <div class="pagination">
+    <button onclick="prevPage()">⬅ Oldingi</button>
+    <span id="pageIndicator">1 / 100</span>
+    <button onclick="nextPage()">Keyingi ➡</button>
+  </div>
 
   <script>
-   
+    const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d';
+    const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+    let currentPage = 1;
+    let movies = [];
+    let watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    let seenList = JSON.parse(localStorage.getItem('seenList') || '[]');
 
-    let sampleData = {
-        movies: [],
-        series: []
-      };
+    async function fetchMovies(page) {
+      movies = [];
+      const startPage = (page - 1) * 3 + 1;
+      const promises = [];
 
-    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
-    const seenList = JSON.parse(localStorage.getItem('seenList') || '[]');
+      for (let i = 0; i < 3; i++) {
+        promises.push(
+          fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc&vote_count.gte=1000&page=${startPage + i}`)
+        );
+      }
 
-    fetch('movies-250.json') // JSON fayl bilan bir papkada bo'lishi kerak
-    .then(response => response.json())
-    .then(data => {
-      sampleData.movies = data.movies.map((movie, index) => ({
-        id: movie.imdbID || 'movie' + index,
-        title: movie.Title,
-        director: movie.Director,
-        year: movie.Year,
-        genre: movie.Genre,
-        runtime: movie.Runtime,
-        plot: movie.Plot,
-        awards: movie.Awards,
-        imdbRating: movie.imdbRating,
-        imdbVotes: movie.imdbVotes,
-        poster: movie.Poster
-      }));
-      showCategory('movies');
-    });
+      const responses = await Promise.all(promises);
+      for (const res of responses) {
+        const data = await res.json();
+        movies.push(...data.results);
+      }
 
+      movies = movies.slice(0, 50);
+      renderMovies();
+    }
 
-    
-
-    function showCategory(category) {
+    function renderMovies() {
       const content = document.getElementById('content');
-      content.innerHTML = '';
       content.className = 'grid';
-      sampleData[category].forEach(item => {
+      content.innerHTML = '';
+      document.getElementById('pageIndicator').textContent = `${currentPage} / 10`;
+
+      movies.forEach(movie => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.onclick = () => showDetails(category, item.id);
+        card.onclick = () => showDetails(movie);
         card.innerHTML = `
-          <img src="${item.poster}" alt="Poster">
-          <h4>${item.title}</h4>
+          <img src="${IMG_URL + movie.poster_path}" alt="Poster">
+          <h4>${movie.title}</h4>
         `;
         content.appendChild(card);
       });
     }
 
-
-  
-
-    function showDetails(category, id) {
-        const item = sampleData[category].find(x => x.id === id);
-        const content = document.getElementById('content');
-        content.className = '';
-        content.innerHTML = `
-          <div class="details">
-            <img src="${item.poster}" alt="Poster">
-            <h2>${item.title}</h2>
-            <p><strong>Rejissyor:</strong> ${item.director}</p>
-            <p><strong>Yili:</strong> ${item.year}</p>
-            <p><strong>Janr:</strong> ${item.genre}</p>
-            <p><strong>Vaqti:</strong> ${item.runtime}</p>
-            <p><strong>Qisqacha:</strong> ${item.plot}</p>
-            <p><strong>Awards:</strong> ${item.awards}</p>
-            <p><strong>IMDb reytingi:</strong> ${item.imdbRating} (${item.imdbVotes} votes)</p>
-            <div class="buttons">
-              <button onclick="addToList('watchlist','${category}','${id}')">⭐ Watchlist</button>
-              <button onclick="addToList('seenList','${category}','${id}')">✅ Ko‘rganman</button>
-            </div>
+    function showDetails(movie) {
+      const content = document.getElementById('content');
+      content.className = '';
+      content.innerHTML = `
+        <div class="details">
+          <img src="${IMG_URL + movie.poster_path}" alt="Poster">
+          <h2>${movie.title}</h2>
+          <p><strong>Chiqqan yili:</strong> ${movie.release_date}</p>
+          <p><strong>Ovozlar:</strong> ${movie.vote_average} (${movie.vote_count} ovoz)</p>
+          <p><strong>Qisqacha:</strong> ${movie.overview}</p>
+          <div class="buttons">
+            <button onclick="addToList('watchlist', ${movie.id})">⭐ Watchlist</button>
+            <button onclick="addToList('seenList', ${movie.id})">✅ Ko‘rganman</button>
           </div>
-        `;
-      }
-    
+        </div>
+      `;
+    }
 
-    function addToList(listName, category, id) {
-      const data = listName === 'watchlist' ? watchlist : seenList;
-      const item = sampleData[category].find(x => x.id === id);
-      if (!data.find(x => x.id === id)) data.push(item);
-      localStorage.setItem(listName, JSON.stringify(data));
-      alert(`${item.title} qo‘shildi!`);
+    function addToList(listName, id) {
+      const list = listName === 'watchlist' ? watchlist : seenList;
+      const movie = movies.find(m => m.id === id);
+      if (!list.find(m => m.id === id)) list.push(movie);
+      localStorage.setItem(listName, JSON.stringify(list));
+      alert('Qo‘shildi!');
     }
 
     function showWatchlist() {
-      showList('watchlist');
+      movies = watchlist;
+      renderMovies();
     }
 
     function showSeenList() {
-      showList('seenList');
+      movies = seenList;
+      renderMovies();
     }
 
-    function showList(listName) {
-        const content = document.getElementById('content');
-        content.className = 'grid';
-        const data = JSON.parse(localStorage.getItem(listName) || '[]');
-        content.innerHTML = '';
-        data.forEach((item, index) => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <img src="${item.poster}" alt="Poster">
-            <h4>${item.title}</h4>
-            <button onclick="removeFromList('${listName}', '${item.id}')">❌ O‘chirish</button>
-          `;
-          content.appendChild(card);
-        });
-      }
+    function searchMovies() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = movies.filter(movie => movie.title.toLowerCase().includes(query));
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+      filtered.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => showDetails(movie);
+        card.innerHTML = `
+          <img src="${IMG_URL + movie.poster_path}" alt="Poster">
+          <h4>${movie.title}</h4>
+        `;
+        content.appendChild(card);
+      });
+    }
 
-      function removeFromList(listName, id) {
-        let data = JSON.parse(localStorage.getItem(listName) || '[]');
-        data = data.filter(item => item.id !== id);
-        localStorage.setItem(listName, JSON.stringify(data));
-        if (listName === 'watchlist') {
-          showWatchlist();
-        } else {
-          showSeenList();
-        }
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchMovies(currentPage);
       }
-      
+    }
 
-    showCategory('movies');
+    function nextPage() {
+      if (currentPage < 100) {
+        currentPage++;
+        fetchMovies(currentPage);
+      }
+    }
+
+    function loadMovies() {
+      currentPage = 1;
+      fetchMovies(currentPage);
+    }
+
+    loadMovies();
   </script>
 </body>
 </html>
