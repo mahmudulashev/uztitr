@@ -19,13 +19,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 0;
-    max-width: 1350px;
+    max-width: 1400px;
     margin: 0 auto;
   }
   
   .logo {
     font-family: "Unbounded", sans-serif;
     font-size: 0.9rem;
+    color: white;
+  }
+
+  .logo a {
+    text-decoration: none;
     color: white;
   }
   
@@ -41,6 +46,10 @@
     font-weight: 400;
   }
   
+  nav a:hover {
+    color: #007bff;
+  }
+
   .search > input {
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -111,6 +120,10 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     font-family: "Kanit", sans-serif;
+  }
+
+  button:hover {
+    opacity: 0.5;
   }
   
   .hero-right {
