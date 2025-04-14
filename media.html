@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Hub</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f8f8f8; }
+    header { background: #222; color: #fff; padding: 1rem; text-align: center; font-size: 1.5rem; }
+    nav { display: flex; justify-content: center; gap: 1rem; background: #444; padding: 1rem; }
+    nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; background: #666; border-radius: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; padding: 1rem; }
+    .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; }
+    .card img { width: 100%; height: 220px; object-fit: cover; }
+    .card h4 { padding: 0.5rem; margin: 0; font-size: 1rem; text-align: center; }
+    .details { padding: 1rem; }
+    .details img { width: 200px; float: left; margin-right: 1rem; border-radius: 10px; }
+    .details h2 { margin-top: 0; }
+    .buttons { margin-top: 1rem; }
+    .buttons button { margin-right: 1rem; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; background: #0084ff; color: white; }
+  </style>
+</head>
+<body>
+  <header>📚🎬 Media Hub</header>
+  <nav>
+    <a href="#" onclick="showCategory('series')">📺 Seriallar</a>
+    <a href="#" onclick="showCategory('movies')">🎬 Filmlar</a>
+    <a href="#" onclick="showCategory('books')">📖 Kitoblar</a>
+    <a href="#" onclick="showCategory('manga')">📚 Mangalar</a>
+    <a href="#" onclick="showWatchlist()">⭐ Watchlist</a>
+    <a href="#" onclick="showSeenList()">✅ Ko‘rilganlar</a>
+    <input type="text" id="searchInput" placeholder="Qidirish..." style="padding: 0.5rem; border-radius: 6px; border: 1px solid #ccc;" onkeyup="searchMovies()" />
+  </nav>
+
+  <div id="content" class="grid"></div>
+
+  <script>
+   
+
+    let sampleData = {
+        movies: [],
+        series: []
+      };
+
+    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    const seenList = JSON.parse(localStorage.getItem('seenList') || '[]');
+
+    fetch('movies-250.json') // JSON fayl bilan bir papkada bo'lishi kerak
+    .then(response => response.json())
+    .then(data => {
+      sampleData.movies = data.movies.map((movie, index) => ({
+        id: movie.imdbID || 'movie' + index,
+        title: movie.Title,
+        director: movie.Director,
+        year: movie.Year,
+        genre: movie.Genre,
+        runtime: movie.Runtime,
+        plot: movie.Plot,
+        awards: movie.Awards,
+        imdbRating: movie.imdbRating,
+        imdbVotes: movie.imdbVotes,
+        poster: movie.Poster
+      }));
+      showCategory('movies');
+    });
+
+
+    
+
+    function showCategory(category) {
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+      content.className = 'grid';
+      sampleData[category].forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => showDetails(category, item.id);
+        card.innerHTML = `
+          <img src="${item.poster}" alt="Poster">
+          <h4>${item.title}</h4>
+        `;
+        content.appendChild(card);
+      });
+    }
+
+
+  
+
+    function showDetails(category, id) {
+        const item = sampleData[category].find(x => x.id === id);
+        const content = document.getElementById('content');
+        content.className = '';
+        content.innerHTML = `
+          <div class="details">
+            <img src="${item.poster}" alt="Poster">
+            <h2>${item.title}</h2>
+            <p><strong>Rejissyor:</strong> ${item.director}</p>
+            <p><strong>Yili:</strong> ${item.year}</p>
+            <p><strong>Janr:</strong> ${item.genre}</p>
+            <p><strong>Vaqti:</strong> ${item.runtime}</p>
+            <p><strong>Qisqacha:</strong> ${item.plot}</p>
+            <p><strong>Awards:</strong> ${item.awards}</p>
+            <p><strong>IMDb reytingi:</strong> ${item.imdbRating} (${item.imdbVotes} votes)</p>
+            <div class="buttons">
+              <button onclick="addToList('watchlist','${category}','${id}')">⭐ Watchlist</button>
+              <button onclick="addToList('seenList','${category}','${id}')">✅ Ko‘rganman</button>
+            </div>
+          </div>
+        `;
+      }
+    
+
+    function addToList(listName, category, id) {
+      const data = listName === 'watchlist' ? watchlist : seenList;
+      const item = sampleData[category].find(x => x.id === id);
+      if (!data.find(x => x.id === id)) data.push(item);
+      localStorage.setItem(listName, JSON.stringify(data));
+      alert(`${item.title} qo‘shildi!`);
+    }
+
+    function showWatchlist() {
+      showList('watchlist');
+    }
+
+    function showSeenList() {
+      showList('seenList');
+    }
+
+    function showList(listName) {
+        const content = document.getElementById('content');
+        content.className = 'grid';
+        const data = JSON.parse(localStorage.getItem(listName) || '[]');
+        content.innerHTML = '';
+        data.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${item.poster}" alt="Poster">
+            <h4>${item.title}</h4>
+            <button onclick="removeFromList('${listName}', '${item.id}')">❌ O‘chirish</button>
+          `;
+          content.appendChild(card);
+        });
+      }
+
+      function removeFromList(listName, id) {
+        let data = JSON.parse(localStorage.getItem(listName) || '[]');
+        data = data.filter(item => item.id !== id);
+        localStorage.setItem(listName, JSON.stringify(data));
+        if (listName === 'watchlist') {
+          showWatchlist();
+        } else {
+          showSeenList();
+        }
+      }
+      
+
+    showCategory('movies');
+  </script>
+</body>
+</html>
