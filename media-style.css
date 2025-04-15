@@ -43,6 +43,7 @@
   nav {
     display: flex;
     gap: 2rem;
+
   }
   
   nav a {
@@ -172,14 +173,16 @@ input {
 }
 
 .details img { 
-    width: 200px; 
-    float: left; 
-    margin-right: 1rem; 
-    border-radius: 10px; 
+   width: 16rem;
+   height: 24rem;
+  float: left; 
+  margin-right: 2rem;
 }
 
 .details h2 { 
     margin-top: 0; 
+    font-family: "Lexend", sans-serif;
+    font-size: 3rem;
 }
 
 .buttons { 
@@ -219,4 +222,43 @@ input {
     color: white;
     font-family: "Lexend", sans-serif;
 }
+
+.page {
+    padding: 1rem; 
+    max-width: 1400px;
+    margin: 0 auto;
+    color: white;
+}
+
+
+
+
+@media (max-width: 765px) {
+  .header-wrapper {
+    padding: 1rem;
+  }
+
+  .logo h2 {
+    font-size: 1rem;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .input {
+    display: none;
+  }
+  
+  .grid {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+   flex-wrap: wrap;
+
+  }
+
+}
+
+
 

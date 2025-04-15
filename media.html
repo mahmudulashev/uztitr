@@ -148,15 +148,16 @@
     const votes = item.vote_count || '0';
 
     const content = document.getElementById('content');
-    content.className = '';
+    content.className = 'page';
     content.innerHTML = `
       <div class="details" id="details">
         <img src="${poster}" alt="Poster">
         <h2>${title}</h2>
+        <p><strong>Qisqacha:</strong> ${overview}</p>
         <p><strong>Yili:</strong> ${year}</p>
         <p><strong>Reyting:</strong> ${rating}</p>
         <p><strong>Ovozlar:</strong> ${votes}</p>
-        <p><strong>Qisqacha:</strong> ${overview}</p>
+       
         <div id="extraInfo"></div>
         <div class="buttons">
           <button onclick="addToList('watchlist')">⭐ Watchlist</button>
@@ -186,8 +187,12 @@
           }
 
           // Fasllar va epizodlarni olish (faqat TV shoular uchun)
-          const seasons = mediaType === 'tv' ? details.number_of_seasons || 'Noma’lum' : 'N/A';
-          const episodes = mediaType === 'tv' ? details.number_of_episodes || 'Noma’lum' : 'N/A';
+          let seasons = '';
+          let episodes = '';
+          if (mediaType === 'tv') {
+            seasons = details.number_of_seasons || 'Noma’lum';
+            episodes = details.number_of_episodes || 'Noma’lum';
+          }
 
           // Qo'shimcha ma'lumotlarni interfeysga chiqarish
           const extraInfo = document.getElementById('extraInfo');
@@ -195,8 +200,8 @@
             extraInfo.innerHTML = `
               <p><strong>Janrlar:</strong> ${genres}</p>
               <p><strong>Rejissyor:</strong> ${director}</p>
-              <p><strong>Fasllar:</strong> ${seasons}</p>
-              <p><strong>Epizodlar:</strong> ${episodes}</p>
+              ${mediaType === 'tv' ? `<p><strong>Fasllar:</strong> ${seasons}</p>` : ''}
+              ${mediaType === 'tv' ? `<p><strong>Epizodlar:</strong> ${episodes}</p>` : ''}
             `;
           }
         })
