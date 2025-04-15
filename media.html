@@ -147,8 +147,6 @@
     const rating = item.vote_average || 'Noma’lum';
     const votes = item.vote_count || '0';
 
-    const savedRating = getSavedRating(item.id);
-
     const content = document.getElementById('content');
     content.className = '';
     content.innerHTML = `
@@ -167,36 +165,50 @@
       </div>
     `;
 
-    if (savedRating !== null) {
-      document.getElementById('ratingSelect').value = savedRating;
-    }
+    // TV shou yoki film ma'lumotlarini olish
+    const mediaType = item.media_type || (item.first_air_date ? 'tv' : 'movie');
+    if (item.id) {
+      fetch(`https://api.themoviedb.org/3/${mediaType}/${item.id}?api_key=${API_KEY}&append_to_response=credits`)
+        .then(res => res.json())
+        .then(details => {
+          // Janrlarni olish (ko'pi bilan 3 ta)
+          const genres = details.genres
+            ? details.genres.slice(0, 3).map(genre => genre.name).join(', ')
+            : 'Noma’lum';
 
-    // TV shou ma'lumotlarini olish
-    if (item.media_type === 'tv' || item.first_air_date) {
-      if (item.id) {
-        fetch(`https://api.themoviedb.org/3/tv/${item.id}?api_key=${API_KEY}`)
-          .then(res => res.json())
-          .then(tvDetails => {
-            const seasons = tvDetails.number_of_seasons || 'Noma’lum';
-            const episodes = tvDetails.number_of_episodes || 'Noma’lum';
-            const extraInfo = document.getElementById('extraInfo');
-            if (extraInfo) {
-              extraInfo.innerHTML = `
-                <p><strong>Fasllar:</strong> ${seasons}</p>
-                <p><strong>Epizodlar:</strong> ${episodes}</p>
-              `;
+          // Rejissyorni olish (faqat filmlar uchun)
+          let director = 'Noma’lum';
+          if (details.credits && details.credits.crew) {
+            const directorData = details.credits.crew.find(person => person.job === 'Director');
+            if (directorData) {
+              director = directorData.name;
             }
-          })
-          .catch(err => {
-            console.error('TV shou ma\'lumotlarini olishda xatolik:', err);
-            const extraInfo = document.getElementById('extraInfo');
-            if (extraInfo) {
-              extraInfo.innerHTML = `<p>Ma'lumotlarni yuklashda xatolik yuz berdi.</p>`;
-            }
-          });
-      } else {
-        console.error('TV shou ID mavjud emas');
-      }
+          }
+
+          // Fasllar va epizodlarni olish (faqat TV shoular uchun)
+          const seasons = mediaType === 'tv' ? details.number_of_seasons || 'Noma’lum' : 'N/A';
+          const episodes = mediaType === 'tv' ? details.number_of_episodes || 'Noma’lum' : 'N/A';
+
+          // Qo'shimcha ma'lumotlarni interfeysga chiqarish
+          const extraInfo = document.getElementById('extraInfo');
+          if (extraInfo) {
+            extraInfo.innerHTML = `
+              <p><strong>Janrlar:</strong> ${genres}</p>
+              <p><strong>Rejissyor:</strong> ${director}</p>
+              <p><strong>Fasllar:</strong> ${seasons}</p>
+              <p><strong>Epizodlar:</strong> ${episodes}</p>
+            `;
+          }
+        })
+        .catch(err => {
+          console.error('Ma\'lumotlarni olishda xatolik:', err);
+          const extraInfo = document.getElementById('extraInfo');
+          if (extraInfo) {
+            extraInfo.innerHTML = `<p>Ma'lumotlarni yuklashda xatolik yuz berdi.</p>`;
+          }
+        });
+    } else {
+      console.error('ID mavjud emas');
     }
   }
 
