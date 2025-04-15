@@ -55,6 +55,31 @@
           <path d="M21 21L16.65 16.65M11 6C13.7614 6 16 8.23858 16 11M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg></label>
       <input type="text" id="searchInput" placeholder="Qidirish..." onkeyup="searchAll()" /> </div>
+
+      <div class="hamburger">   
+        <div class="off-screen-menu">
+            <ul class="ham-menu-ul">
+                <li><div><img src="./images/icons/home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </div><a href="./index.html" class="nav1">Home</a></li>
+                <li><div><img src="./images/icons/work_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </div><a href="./about.html" class="nav1">About Us</a></li>
+                <li><div><img src="./images/icons/design_services_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </div><a href="./services.html" class="nav1">Services</a></li>
+                
+
+            </ul>
+        </div>
+    
+        <nav class="nav-bar">
+            <div class="ham-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+  
+    </div>
+  </div> 
     </div>
   </header>
  
@@ -378,6 +403,27 @@
 
   
 
+  
+  const hamMenu = document.querySelector('.ham-menu');
+  const offScreen = document.querySelector('.off-screen-menu');
+  const content = document.getElementById('content'); // Posterlar joylashgan asosiy konteyner
+
+  hamMenu.addEventListener('click', () => {
+      hamMenu.classList.toggle('active');
+      offScreen.classList.toggle('active');
+
+      // Kino posterlarini menyudan orqaga o'tkazish yoki asl holatiga qaytarish
+      if (offScreen.classList.contains('active')) {
+          content.style.zIndex = '-1'; // Posterlarni menyudan orqaga o'tkazish
+          content.style.position = 'relative'; // Posterlarni menyudan ajratish
+      } else {
+          content.style.zIndex = '0'; // Posterlarni asl holatiga qaytarish
+          content.style.position = 'static'; // Asl joylashuvni tiklash
+      }
+  });
+
 </script>
+
+
 </body>
 </html>
