@@ -6,12 +6,17 @@
 
   body {
      background:   #171c20;
+     font-family: "Lexend", sans-serif;
   }
 
   svg {
     width: 1.5rem;
     height: 1.5rem;
     color: white;
+  }
+
+  .svgg {
+    color: #007bff;
   }
   
   /*============== HEADER ============*/
@@ -177,12 +182,23 @@ input {
    height: 24rem;
   float: left; 
   margin-right: 2rem;
+  border-radius: 10px;
 }
 
 .details h2 { 
     margin-top: 0; 
     font-family: "Lexend", sans-serif;
     font-size: 3rem;
+}
+
+.details p {
+  color: rgba(255, 255, 255, 0.71);
+  font-weight: 300;
+} 
+
+hr {
+  margin: 1rem 0;
+  color: rgba(255, 255, 255, 0.586);
 }
 
 .buttons { 
@@ -230,8 +246,52 @@ input {
     color: white;
 }
 
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  margin: 0.7rem 0;
+}
+
+.meta> p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.586);
+  font-size: 0.8rem;
+}
+
+strong {
+  color: white;
+  font-weight: 700;
+}
 
 
+.wrapper {
+  display: flex;
+}
+
+.qisqacha {
+  width: 60%;
+}
+
+/* Rejissyor, fasllar va epizodlar uchun umumiy div */
+#extraInfo {
+  margin-top: 1rem;
+  padding: 0.5rem;
+
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+
+}
+
+#extraInfo p {
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
 
 @media (max-width: 765px) {
   .header-wrapper {

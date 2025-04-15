@@ -5,7 +5,7 @@
   }
   
   body {
-    font-family: "Kanit", sans-serif;
+    font-family: "Lexend", sans-serif;
   }
   
   /*============== HEADER ============*/
@@ -50,25 +50,6 @@
   nav a:hover {
     color: #007bff;
   }
-
-  .search > input {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid #fafcff;
-    outline: none;
-    font-size: 1rem;
-    background-color: #212429;
-    color: white;
-    width: 30rem;
-  }
-  
-  input::placeholder {
-    color: white;
-    font-size: 1rem;
-    font-weight: 300;
-    font-family: "Kanit", sans-serif;
-    opacity: 0.5;   
-  }
   
   /* ========== HERO ============ */
   .hero {
@@ -109,7 +90,7 @@
     font-size: 1rem;
     font-weight: 300;
     line-height: 1.5;
-    font-family: "Kanit", sans-serif;
+    font-family: "Lexend", sans-serif;
   }
 
   .hero-left a {
@@ -127,7 +108,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    font-family: "Kanit", sans-serif;
+    font-family: "Lexend", sans-serif;
     width: 100%;
   }
 
