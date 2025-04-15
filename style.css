@@ -44,6 +44,7 @@
     color: white;
     font-size: 1rem;
     font-weight: 400;
+    font-family: "Lexend", sans-serif;
   }
   
   nav a:hover {
@@ -72,7 +73,7 @@
   /* ========== HERO ============ */
   .hero {
     background-color: #17181e;
-    height: 87.8vh;
+    height: 90vh;
     overflow-y: hidden;
   }
   
@@ -95,6 +96,8 @@
     color: white;
     font-family: "Bebas Neue", sans-serif;
   }
+
+
   
   .hero-left h2 {
     font-size: 4rem;
@@ -108,6 +111,11 @@
     line-height: 1.5;
     font-family: "Kanit", sans-serif;
   }
+
+  .hero-left a {
+    width: 100%;
+    text-decoration: none;
+  }
   
   button {
     padding: 0.8rem 2rem;
@@ -120,6 +128,7 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     font-family: "Kanit", sans-serif;
+    width: 100%;
   }
 
   button:hover {
