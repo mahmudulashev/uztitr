@@ -156,11 +156,7 @@
       // Filmlar uchun janrlarni ko'rsatish
       genresContainer.style.display = 'block';
       genresContainer.innerHTML = ''; // Janrlarni tozalash
-      genres
-        .filter((genre, index, self) => 
-          genre.name && self.findIndex(g => g.id === genre.id) === index // Takroriy va bo'sh janrlarni olib tashlash
-        )
-        .forEach(genre => renderGenreSection(genre));
+      genres.forEach(genre => renderGenreSection(genre));
     } else if (category === 'series') {
       // Serial janrlarini ko'rsatish
       genresContainer.style.display = 'block';
@@ -171,7 +167,6 @@
         { id: 18, name: 'Drama' },
         { id: 10765, name: 'Sci-Fi & Fantasy' },
         { id: 80, name: 'Crime' },
-        { id: 'top_rated', name: 'Top Rated' }, // Top Rated qo'shildi
       ];
       seriesGenres.forEach(genre => renderGenreSection(genre));
     } else {
@@ -499,7 +494,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     setCategory('movies'); // Bu qator faqat bir marta ishlashi kerak
-    loadData();
   });
   
   document.addEventListener('DOMContentLoaded', () => {
@@ -550,7 +544,7 @@
     { id: 12, name: 'Adventure' },
     { id: 27, name: 'Horror' },
     { id: 'top_rated', name: 'Top Rated' },
-  ];
+  ].filter(genre => genre.name && genre.id); // Bo'sh yoki noto'g'ri ma'lumotlarni olib tashlash
 
   function loadMoviesByGenre(genreId, page = 1) {
     let url;
@@ -588,16 +582,21 @@
     genresContainer.appendChild(section);
 
     loadMoviesByGenre(genre.id).then(items => {
-      const grid = document.getElementById(`genre-grid-${genre.id}`);
-      items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item.title || item.name}" onclick='showDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
-          <h3>${item.title || item.name}</h3>
-        `;
-        grid.appendChild(card);
-      });
+      if (items.length === 0) {
+        // Agar janr bo'sh bo'lsa, uni yashirish
+        section.style.display = 'none';
+      } else {
+        const grid = document.getElementById(`genre-grid-${genre.id}`);
+        items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item.title || item.name}" onclick='showDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
+            <h3>${item.title || item.name}</h3>
+          `;
+          grid.appendChild(card);
+        });
+      }
     });
   }
 
