@@ -20,6 +20,16 @@
 
   <title>Media Hub</title>
   <link rel="stylesheet" href="media-style.css">
+
+  <style>
+    #content {
+      display: none;
+    }
+
+    #pagination {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -151,12 +161,16 @@
     currentPage = 1;
 
     const genresContainer = document.getElementById('genres-container');
+    const content = document.getElementById('content'); // `#content` elementini olish
+
+    // `#content` elementini avtomatik yashirish
+    content.style.display = 'none';
 
     if (category === 'movies') {
       // Filmlar uchun janrlarni ko'rsatish
       genresContainer.style.display = 'block';
       genresContainer.innerHTML = ''; // Janrlarni tozalash
-      //genres.forEach(genre => renderGenreSection(genre));
+      genres.forEach(genre => renderGenreSection(genre));
     } else if (category === 'series') {
       // Serial janrlarini ko'rsatish
       genresContainer.style.display = 'block';
@@ -389,9 +403,13 @@
     document.querySelector('.swiper').style.display = 'none';
     document.getElementById('genres-container').style.display = 'none';
 
+    // `#content` elementini ko'rsatish
+    const content = document.getElementById('content');
+    content.style.display = 'flex';
+
     // Saqlangan ro'yxatni yuklash
     const savedList = JSON.parse(localStorage.getItem(listName)) || [];
-    showList(savedList, listName); 
+    showList(savedList, listName);
 
     // Paginationni tozalash
     document.getElementById('pagination').innerHTML = '';
