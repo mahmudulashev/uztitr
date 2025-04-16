@@ -444,6 +444,27 @@ strong {
   font-size: 0.9rem;
 }
 
+
+.swiper {
+  width: 100%;
+  height: 400px;
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
 @media (max-width: 765px) {
 
   .hamburger {

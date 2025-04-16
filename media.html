@@ -15,8 +15,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
 
-
-
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <title>Media Hub</title>
   <link rel="stylesheet" href="media-style.css">
@@ -80,6 +80,36 @@
   </div> 
     </div>
   </header>
+
+
+
+  </div>
+</div>
+
+<div class="swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" onclick="loadMovieDetails(157336)">
+      <img src="https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg" alt="Interstellar">
+      <h3>Interstellar</h3>
+    </div>
+    <div class="swiper-slide" onclick="loadMovieDetails(550)">
+      <img src="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" alt="Fight Club">
+      <h3>Fight Club</h3>
+    </div>
+    <div class="swiper-slide" onclick="loadMovieDetails(769)">
+      <img src="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" alt="Goodfellas">
+      <h3>Goodfellas</h3>
+    </div>
+  </div>
+
+  <!-- Navigatsiya tugmalari -->
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+
+  <!-- Pagination -->
+  <div class="swiper-pagination"></div>
+</div>
+
  
   <div id="content" class="grid"></div>
   <div class="pagination" id="pagination"></div>
@@ -98,8 +128,16 @@
 
 
 
+
+
   
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
+    
+
+    
+    
 
 
   const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d'; 
@@ -333,6 +371,30 @@
     }
   }
 
+
+
+
+
+
+
+
+  function loadMovieDetails(movieId) {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=credits`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(movie => {
+        showDetails(movie); // Mavjud `showDetails` funksiyasidan foydalaniladi
+      })
+      .catch(err => {
+        console.error('Kino maʼlumotlarini yuklashda xatolik:', err);
+      });
+  }
+
+
+
+
+
   function renderPagination(isDetailsPage = false, mediaType = null) {
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
@@ -415,9 +477,26 @@
     loadData(); 
   });
   
+  document.addEventListener('DOMContentLoaded', () => {
+  const swiper = new Swiper('.swiper', {
+    loop: true, // Slayderni aylantirish
+    slidesPerView: 1, // Bir vaqtning o'zida nechta slayd ko'rinadi
+    spaceBetween: 20, // Slaydlar orasidagi masofa
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true, // Pagination tugmalari bosiladigan bo'ladi
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    autoplay: {
+      delay: 1000, // Har 10 soniyada avtomatik o'tish
+      disableOnInteraction: false, // Foydalanuvchi bilan o'zaro ta'sirda to'xtamaydi
+    },
+  });
+});
 
-
-  
 
   
   const hamMenu = document.querySelector('.ham-menu');
