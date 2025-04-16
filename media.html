@@ -110,6 +110,7 @@
   <div class="swiper-pagination"></div>
 </div>
 
+<div id="genres-container"></div>
  
   <div id="content" class="grid"></div>
   <div class="pagination" id="pagination"></div>
@@ -148,6 +149,36 @@
   function setCategory(category) {
     currentCategory = category;
     currentPage = 1;
+
+    const genresContainer = document.getElementById('genres-container');
+
+    if (category === 'movies') {
+      // Filmlar uchun janrlarni ko'rsatish
+      genresContainer.style.display = 'block';
+      genresContainer.innerHTML = ''; // Janrlarni tozalash
+      genres
+        .filter((genre, index, self) => 
+          genre.name && self.findIndex(g => g.id === genre.id) === index // Takroriy va bo'sh janrlarni olib tashlash
+        )
+        .forEach(genre => renderGenreSection(genre));
+    } else if (category === 'series') {
+      // Serial janrlarini ko'rsatish
+      genresContainer.style.display = 'block';
+      genresContainer.innerHTML = ''; // Janrlarni tozalash
+      const seriesGenres = [
+        { id: 10759, name: 'Action & Adventure' },
+        { id: 35, name: 'Comedy' },
+        { id: 18, name: 'Drama' },
+        { id: 10765, name: 'Sci-Fi & Fantasy' },
+        { id: 80, name: 'Crime' },
+        { id: 'top_rated', name: 'Top Rated' }, // Top Rated qo'shildi
+      ];
+      seriesGenres.forEach(genre => renderGenreSection(genre));
+    } else {
+      // Tomosha ro'yxati yoki ko'rilganlar uchun janrlarni yashirish
+      genresContainer.style.display = 'none';
+    }
+
     loadData();
   }
 
@@ -208,6 +239,9 @@
     const rating = item.vote_average ? item.vote_average.toFixed(1) : 'Noma’lum';
     const votes = item.vote_count || '0';
 
+    document.querySelector('.swiper').style.display = 'none';
+    document.getElementById('genres-container').style.display = 'none';
+
     const content = document.getElementById('content');
     content.className = 'page';
     content.innerHTML = `
@@ -232,7 +266,7 @@
             <hr>
             <div id="extraInfo"></div>
           </div>
-
+ 
           <div class="reyting">
             <p > <strong class='rat'>${rating}</strong></p>
             <p class='ovoz'><strong>Ovozlar:</strong> ${votes}</p>
@@ -246,6 +280,7 @@
             </div>
           </div>
         </div>
+        <button onclick="goBack()">Orqaga</button>
       </div>
     `;
 
@@ -355,8 +390,15 @@
   }
 
   function showSavedList(listName) {
+    // Janrlar va Swiperni yashirish
+    document.querySelector('.swiper').style.display = 'none';
+    document.getElementById('genres-container').style.display = 'none';
+
+    // Saqlangan ro'yxatni yuklash
     const savedList = JSON.parse(localStorage.getItem(listName)) || [];
     showList(savedList, listName); 
+
+    // Paginationni tozalash
     document.getElementById('pagination').innerHTML = '';
   }
 
@@ -399,24 +441,7 @@
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
 
-    if (isDetailsPage) {
-      
-      const backButton = document.createElement('button');
-      backButton.innerHTML = `
-        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 12H4M4 12L10 18M4 12L10 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `;
-      backButton.onclick = () => {
-        if (mediaType === 'tv') {
-          setCategory('series'); 
-        } else {
-          setCategory('movies'); 
-        }
-      };
-      pagination.appendChild(backButton);
-    } else {
-      
+    if (!isDetailsPage) {
       const backButton = document.createElement('button');
       backButton.innerHTML = `
         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -473,14 +498,14 @@
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    setCategory('movies'); 
-    loadData(); 
+    setCategory('movies'); // Bu qator faqat bir marta ishlashi kerak
+    loadData();
   });
   
   document.addEventListener('DOMContentLoaded', () => {
   const swiper = new Swiper('.swiper', {
-    loop: true, // Slayderni aylantirish
-    slidesPerView: 1, // Bir vaqtning o'zida nechta slayd ko'rinadi
+    loop: true, 
+    slidesPerView: 1, 
     spaceBetween: 20, // Slaydlar orasidagi masofa
     pagination: {
       el: '.swiper-pagination',
@@ -517,6 +542,102 @@
       }
   });
 
+  const genres = [
+    { id: 28, name: 'Action' },
+    { id: 35, name: 'Comedy' },
+    { id: 18, name: 'Drama' },
+    { id: 878, name: 'Science Fiction' },
+    { id: 12, name: 'Adventure' },
+    { id: 27, name: 'Horror' },
+    { id: 'top_rated', name: 'Top Rated' },
+  ];
+
+  function loadMoviesByGenre(genreId, page = 1) {
+    let url;
+
+    if (currentCategory === 'movies') {
+      // Filmlar uchun API chaqiruv
+      url = genreId === 'top_rated'
+        ? `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&page=${page}`
+        : `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&page=${page}`;
+    } else if (currentCategory === 'series') {
+      // Serial janrlari uchun API chaqiruv
+      url = genreId === 'top_rated'
+        ? `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&page=${page}`
+        : `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${genreId}&page=${page}`;
+    }
+
+    return fetch(url)
+      .then(res => res.json())
+      .then(data => data.results);
+  }
+
+  function renderGenreSection(genre) {
+    const genresContainer = document.getElementById('genres-container');
+
+    const section = document.createElement('div');
+    section.className = 'genre-section';
+    section.id = `genre-${genre.id}`;
+
+    section.innerHTML = `
+      <h2 class="genre-title">${genre.name}</h2>
+      <div class="genre-grid" id="genre-grid-${genre.id}"></div>
+      <button class="load-more" data-genre-id="${genre.id}" data-page="1">Load More</button>
+    `;
+
+    genresContainer.appendChild(section);
+
+    loadMoviesByGenre(genre.id).then(items => {
+      const grid = document.getElementById(`genre-grid-${genre.id}`);
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item.title || item.name}" onclick='showDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
+          <h3>${item.title || item.name}</h3>
+        `;
+        grid.appendChild(card);
+      });
+    });
+  }
+
+  function setupLoadMore() {
+    document.addEventListener('click', event => {
+      if (event.target.classList.contains('load-more')) {
+        const button = event.target;
+        const genreId = button.getAttribute('data-genre-id');
+        let page = parseInt(button.getAttribute('data-page'), 10);
+
+        page += 1;
+        button.setAttribute('data-page', page);
+
+        loadMoviesByGenre(genreId, page).then(items => {
+          const grid = document.getElementById(`genre-grid-${genreId}`);
+          items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+              <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item.title || item.name}" onclick='showDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
+              <h3>${item.title || item.name}</h3>
+            `;
+            grid.appendChild(card);
+          });
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    genres.forEach(genre => renderGenreSection(genre));
+    setupLoadMore();
+  });
+
+  function goBack() {
+    document.querySelector('.swiper').style.display = 'block';
+    document.getElementById('genres-container').style.display = 'block';
+    document.getElementById('content').className = 'grid';
+    document.getElementById('content').innerHTML = '';
+  }
 </script>
 
 
