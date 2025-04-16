@@ -161,7 +161,7 @@
     currentPage = 1;
 
     const genresContainer = document.getElementById('genres-container');
-    const content = document.getElementById('content'); // `#content` elementini olish
+    const content = document.getElementById('content');
 
     // `#content` elementini avtomatik yashirish
     content.style.display = 'none';
@@ -660,6 +660,10 @@
   document.addEventListener('DOMContentLoaded', () => {
     genres.forEach(genre => renderGenreSection(genre));
     setupLoadMore();
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setCategory('movies');
   });
 
   function goBack() {
