@@ -156,7 +156,7 @@
       // Filmlar uchun janrlarni ko'rsatish
       genresContainer.style.display = 'block';
       genresContainer.innerHTML = ''; // Janrlarni tozalash
-      genres.forEach(genre => renderGenreSection(genre));
+      //genres.forEach(genre => renderGenreSection(genre));
     } else if (category === 'series') {
       // Serial janrlarini ko'rsatish
       genresContainer.style.display = 'block';
@@ -493,7 +493,8 @@
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    setCategory('movies'); // Bu qator faqat bir marta ishlashi kerak
+    setCategory('movies'); // Filmlar bo'limini bir marta yuklash
+    setupLoadMore(); // Load More tugmasini sozlash
   });
   
   document.addEventListener('DOMContentLoaded', () => {
@@ -537,14 +538,14 @@
   });
 
   const genres = [
-    { id: 28, name: 'Action' },
-    { id: 35, name: 'Comedy' },
-    { id: 18, name: 'Drama' },
-    { id: 878, name: 'Science Fiction' },
-    { id: 12, name: 'Adventure' },
-    { id: 27, name: 'Horror' },
-    { id: 'top_rated', name: 'Top Rated' },
-  ].filter(genre => genre.name && genre.id); // Bo'sh yoki noto'g'ri ma'lumotlarni olib tashlash
+  { id: 28, name: 'Action' },
+  { id: 35, name: 'Comedy' },
+  { id: 18, name: 'Drama' },
+  { id: 878, name: 'Science Fiction' },
+  { id: 12, name: 'Adventure' },
+  { id: 27, name: 'Horror' },
+  { id: 'top_rated', name: 'Top Rated' },
+].filter(genre => genre.name && genre.id); // Bo'sh yoki noto'g'ri ma'lumotlarni olib tashlash
 
   function loadMoviesByGenre(genreId, page = 1) {
     let url;
@@ -562,8 +563,17 @@
     }
 
     return fetch(url)
-      .then(res => res.json())
-      .then(data => data.results);
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`API xatosi: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(data => data.results)
+      .catch(err => {
+        console.error(`API chaqiruvda xatolik: ${err.message}`);
+        return [];
+      });
   }
 
   function renderGenreSection(genre) {
@@ -582,7 +592,7 @@
     genresContainer.appendChild(section);
 
     loadMoviesByGenre(genre.id).then(items => {
-      if (items.length === 0) {
+      if (!items || items.length === 0) {
         // Agar janr bo'sh bo'lsa, uni yashirish
         section.style.display = 'none';
       } else {
@@ -597,6 +607,9 @@
           grid.appendChild(card);
         });
       }
+    }).catch(err => {
+      console.error(`Janrni yuklashda xatolik: ${genre.name}`, err);
+      section.style.display = 'none'; // Xatolik yuz bersa, janrni yashirish
     });
   }
 
