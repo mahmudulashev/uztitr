@@ -84,6 +84,8 @@
     border-radius: 15px;
     padding: 1rem 2rem;
     border: 5px solid #1a1a1a;
+    /* position: absolute;
+    top: 0; */
     
   }
 
@@ -108,6 +110,71 @@ input {
     opacity: 0.5;   
   }
 
+
+  .content2 {
+    position: absolute;
+    top: 11rem;
+    left: 0;
+    color: white;
+    text-align: left;
+    max-width: 665px;
+    font-family: "DM Sans", sans-serif;
+    margin-left: 4rem;
+  }
+
+  .content2 h2 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 55px;
+    font-weight: 750;
+    margin-top: 0.5rem;
+  }
+
+  .content2 h3 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+
+
+  }
+
+  .content2 h3 > img {
+    width: 1.2rem;
+  }
+
+  .content2 span {
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  .rejis {
+    font-size: 22px;
+    font-weight: 550;
+    margin-top: 0.8rem;
+  }
+
+  .rejis span {
+    font-size: 20px;
+    color: rgb(244, 239, 239);
+  } 
+
+  .matnlar {
+    margin-top: 0.5rem;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(244, 239, 239);
+    line-height: 1.5;
+  }
+
+  .reytinglar {
+    font-size: 18px;
+    margin-top: 2px;
+    
+  }
 
 .off-screen-menu {
   background-color:  rgb(34, 37, 49);
@@ -251,6 +318,19 @@ li {
     left: 60%;
     display: none;
      
+}
+
+.home {
+  width: 12rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+.home svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
 }
 
 .card:hover { 
@@ -457,8 +537,16 @@ strong {
 .swiper {
   max-width: 1400px;
   width: 100%;
-  height: 500px;
+  height: 600px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  position: relative;
 
+}
+
+.swiper:hover .swiper-button-next,
+.swiper:hover .swiper-button-prev {
+  display: block;
 }
 
 .swiper-slide {
@@ -473,6 +561,38 @@ strong {
   width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+/* Swiper paginationni oq rangga va kichikroq qilish */
+.swiper-pagination-bullet {
+  background-color: white !important;
+  width: 8px !important;
+  height: 8px !important;
+  opacity: 0.7 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white !important;
+  opacity: 1 !important;
+}
+
+/* Swiper navigatsiya tugmalarini oq rangda qilish */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white; /* Tugmalarni oq rangda qilish */
+  font-weight: 900;
+  transform: scale(0.5); /* 0.6 = 60% ga kichiklashadi */
+  margin: 0 0.7rem; /* Tugmalar orasidagi masofa */
+  font-size: 1.5rem; /* Tugma matnining o'lchami */
+  display: none;
+  font-family: "Lexend", sans-serif; /* Tugmalarga shrift berish */
+
+}
+
+/* Tugmalarni hover qilganda ham oq rangda qolishi uchun */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: white;
 }
 
 /* Janr konteyneri */

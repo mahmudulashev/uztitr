@@ -466,7 +466,7 @@ li {
     }
   
     .scroll-down .poster-track {
-      animation: scrollDown 10s linear infinite;
+      animation: scrollDown 80s linear infinite;
     }
     
     @keyframes scrollDown {
