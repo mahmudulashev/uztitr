@@ -140,7 +140,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 2rem;
+        /* padding: 1rem 2rem; */
         position: sticky;
         
       }
@@ -711,14 +711,128 @@
 
 
     /* RESPONSIV */
-@media (max-width: 768px) {
-  .nav-tom {
-    display: none;
-  }
+    @media (max-width: 768px) {
+      .nav-tom {
+        display: none;
+      }
+    
+      .hamburger {
+        display: block;
+      }
 
-  .hamburger {
-    display: block;
-  }
+      .header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 1rem;
+        
+      }
 
-  
-}
+      .logo {
+        font-size: 0.6rem;
+        margin-left: 0.5rem;
+      }
+    
+      .off-screen-menu {
+        max-width: 100%;
+      }
+    
+      .search {
+        width: 80%;
+        max-width: 80%;
+        position: absolute;
+      }
+
+      .search-btn {
+        margin-left: 7rem;
+        
+       
+      }
+    
+       .swiper {
+        padding: 0 0.7rem;
+        width: 24.5rem;
+        height: 220px; /* Telefon uchun balandlikni moslashtirish */
+        overflow: hidden; /* Sig'magan joylarni kesib tashlash */
+      }
+     
+      .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Telefon uchun rasmni kesib tashlash */
+        border-radius: 8px;
+      }
+    
+      .genre-grid {
+        gap: 0.5rem;
+      }
+    
+      .card {
+        width: 10rem;
+        height: 15rem;
+      }
+
+
+      .swiper-content {
+        top: 6rem;
+        left: 0;
+        text-align: left;
+        max-width: 365px;
+        margin-left: 2rem;
+      }
+    
+      .swiper-content h2 {
+
+        font-size: 20px;
+        font-weight: 750;
+        margin-top: 0.5rem;
+      }
+    
+      .swiper-content h3 {
+        font-size: 12px;
+    
+    
+      }
+    
+      .swiper-content h3 > img {
+        width: 1.2rem;
+      }
+    
+      .swiper-content span {
+        font-size: 11px;
+        font-weight: 500;
+      }
+    
+      .little-content {
+        font-size: 11px;
+
+      }
+    
+      .little-content span {
+        font-size: 10px;
+      } 
+    
+      .text {
+        margin-top: 0.5rem;
+        font-size: 10px;
+        display: none;
+      }
+
+
+      .genre-grid::-webkit-scrollbar {
+       display: none;
+      }
+      
+      .genre-grid::-webkit-scrollbar-thumb {
+        display: none;
+      }
+
+      .genre-title {
+        font-size: 23px;
+        
+      }
+
+    
+      
+    }
+
