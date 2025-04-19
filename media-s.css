@@ -857,6 +857,10 @@
         transform: scale(1)
       }
 
+      .aaa {
+        max-width: 90%;
+      }
+
     
       
     }
