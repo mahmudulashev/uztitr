@@ -8,6 +8,8 @@
     body {
         background: #141414;
         font-family: "Lexend", sans-serif;
+        background: url(../images/upcoming-bg.png);
+        background-position: center;
     }
 
 
