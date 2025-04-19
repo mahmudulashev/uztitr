@@ -742,6 +742,7 @@
 
       justify-content: space-between;
       padding-top: 4rem;
+      flex-wrap: wrap;
     }
 
 
@@ -772,7 +773,11 @@
       font-size: 16px;
     }
 
-    .socials > svg {
+    .foot-box > ul > li > a:hover {
+      color: white;
+    }
+
+    .socials > a > svg {
       width: 3rem;
       height: 3rem;
       background-color: #2e2e2e;
@@ -957,8 +962,92 @@
         width: 80%;
       }
 
+      .foot-content {
+        display: flex;
+        flex-wrap: wrap; /* Elementlarni o'rash */
+        justify-content: center; /* Markazga joylashtirish */
+        gap: 1.5rem; /* Elementlar orasidagi bo'shliq */
+        /* Ichki bo'shliqni moslashtirish */
+      }
 
-    
-      
+      .foot-box {
+        width: 45%; /* Har bir foot-box kengligi */
+         /* Matnni markazga joylashtirish */
+      }
+
+      .foot-box > h2 {
+        font-size: 1rem; /* Kichikroq shrift */
+        margin-bottom: 0.5rem; /* Sarlavha ostidagi bo'shliqni kamaytirish */
+      }
+
+      .foot-box > ul {
+        gap: 0.3rem; /* Havolalar orasidagi bo'shliqni kamaytirish */
+      }
+
+      .foot-box > ul > li > a {
+        font-size: 0.9rem; /* Havolalar shriftini kichikroq qilish */
+      }
+
+      footer {
+        margin-top: 3rem;
+        padding: 1.5rem 0.5rem; /* Telefon uchun moslashtirilgan padding */
+        /* Markazga joylashtirish */
+      }
+
+      .footer-wrapper {
+         /* Elementlarni ustma-ust joylashtirish */
+        align-items: center;
+        gap: 1.5rem; /* Elementlar orasidagi bo'shliq */
+      }
+
+      .foot-content {
+         /* Telefon uchun ustma-ust joylashtirish */
+        justify-content: center;
+        gap: 1.5rem; /* Elementlar orasidagi bo'shliq */
+        padding: 1rem; /* Ichki bo'shliqni moslashtirish */
+      }
+
+      .foot-box > h2 {
+        font-size: 1rem; /* Kichikroq shrift */
+        margin-bottom: 0.5rem; /* Sarlavha ostidagi bo'shliqni kamaytirish */
+      }
+
+      .foot-box > ul {
+        gap: 0.3rem; /* Havolalar orasidagi bo'shliqni kamaytirish */
+      }
+
+      .foot-box > ul > li > a {
+        font-size: 0.9rem; /* Havolalar shriftini kichikroq qilish */
+      }
+
+      .socials {
+        display: flex;
+        justify-content: center;
+        gap: 1rem; /* Ijtimoiy tarmoqlar orasidagi bo'shliq */
+      }
+
+      .socials > a > svg {
+        width: 2.5rem; /* Ijtimoiy tarmoq ikonkalari o'lchami */
+        height: 2.5rem;
+      }
+
+      .line {
+        margin-top: 2rem; /* Chiziqning yuqori bo'shlig'ini kamaytirish */
+      }
+
+      .bottom {
+        flex-direction: column; /* Telefon uchun ustma-ust joylashtirish */
+        gap: 0.5rem; /* Elementlar orasidagi bo'shliq */
+      }
+
+      .bottom h2 {
+        font-size: 0.8rem; /* Kichikroq shrift */
+      }
+
+  
+
+      .bottom-text a {
+        font-size: 0.8rem; /* Havolalar shriftini kichikroq qilish */
+      }
     }
 
