@@ -205,13 +205,13 @@
         
       }
 
-      li > a > svg {
+      .ham-menu-ul li > a > svg {
         width: 1.5rem;
         height: 1.5rem;
         color: white;
       }
       
-      li {
+      .ham-menu-ul li  {
         list-style: none;
         margin-bottom: 1rem;
         display: flex;
@@ -303,7 +303,7 @@
       }
 
       .swiper {
-        max-width: 1400px;
+        max-width: 1450px;
         width: 100%;
         height: 600px;
         border-radius: 10px;
@@ -723,6 +723,102 @@
     display: none;
     }
 
+    
+
+
+    footer {
+      background-color: #0b0b0b;
+      color: white;
+      margin-top: 120px;
+
+    }
+    .footer-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .foot-content {
+      display: flex;
+
+      justify-content: space-between;
+      padding-top: 4rem;
+    }
+
+
+
+    .foot-box > h2 {
+      color: white;
+      font-size: 19px;
+      font-family: "DM Sans";
+      font-weight: 400;
+      margin-bottom: 0.9rem;
+    }
+
+    .foot-box > ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .foot-box > ul > li {
+      background: none;
+      list-style: none;
+    }
+
+    .foot-box > ul > li > a {
+      text-decoration: none;
+      color: #858585;
+      font-family: "DM Sans";
+      font-size: 16px;
+    }
+
+    .socials > svg {
+      width: 3rem;
+      height: 3rem;
+      background-color: #2e2e2e;
+      padding: 0.6rem;
+      border-radius: 7px;
+      
+    }
+
+    .line {
+      margin-top: 4rem;
+     
+      width: 100%;
+      height: 2px;
+      background-color: #2e2e2e;
+    }
+
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .bottom h2 {
+      font-family: "DM Sans";
+      font-size: 14px;
+      font-weight: 300;
+      color: #858585;
+    }
+
+    .bottom-text a {
+      text-decoration: none;
+      color: #858585;
+      font-family: "DM Sans";
+      font-size: 14px;
+    }
+
+    .bottom-text span {
+
+      color: #858585;
+      font-family: "DM Sans";
+      font-size: 14px;
+    }
+
+    
 
 
     /* RESPONSIV */
@@ -860,6 +956,7 @@
       .aaa {
         width: 80%;
       }
+
 
     
       
