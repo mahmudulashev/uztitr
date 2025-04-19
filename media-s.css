@@ -13,8 +13,7 @@
 
     @font-face {
         font-family: 'SF Pro Display';
-        src: url('./fonts/SF-Pro-Text-Heavy.otf') format('opentype');
-        font-weight: bold;
+        src: url('./fonts/SF-Pro-Text-Semibold.otf') format('opentype');
         font-style: normal;
       }
       
@@ -107,8 +106,8 @@
       /* ==== HEADER ==== */
 
       .off-screen-menu {
-        background-color: rgb(34, 37, 49);
-        width: 100%;
+        background-color: #2a2a2a;
+        width: 75%;
         max-width: 600px;
         position: fixed; /* Menyuni ekranga mahkamlang */
         top: 0;
@@ -116,8 +115,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        text-align: center;
+        justify-content: start;
         transition: 0.3s ease;
         height: 100vh;
         z-index: 1000; /* Boshqa elementlardan ustun qilish */
@@ -151,7 +149,6 @@
       .ham-menu {
         height: 40px;
         width: 30px;
-        margin-left: auto;
         position: relative;
         cursor: pointer; 
         transition: transform 0.3s ease; 
@@ -196,13 +193,22 @@
       
       .ham-menu-ul li > a {
         color: white;
-        text-transform: uppercase;
-        font-size: 1.4rem;
+        font-size: 1rem;
         text-decoration: none;
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
         padding: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: 0.3s ease;
         
+      }
+
+      li > a > svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: white;
       }
       
       li {
@@ -210,10 +216,19 @@
         margin-bottom: 1rem;
         display: flex;
         align-items: center;
+        justify-content: start;
         gap: 0.4rem;
+        background-color: #0d1951;
+        padding-right: 6rem;
+        padding-left: 1rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+        border-radius: 5px;
       }
       
-      
+      .ham-menu-ul {
+        margin-top: 8rem;
+      }
 
       
 
@@ -751,8 +766,8 @@
     
        .swiper {
         padding: 0 0.7rem;
-        width: 24.5rem;
-        height: 220px; /* Telefon uchun balandlikni moslashtirish */
+        width: 24rem;
+        height: 250px; /* Telefon uchun balandlikni moslashtirish */
         overflow: hidden; /* Sig'magan joylarni kesib tashlash */
       }
      
@@ -782,29 +797,29 @@
       }
     
       .swiper-content h2 {
-
-        font-size: 20px;
+        max-width: 92%;
+        font-size: 26px;
         font-weight: 750;
         margin-top: 0.5rem;
       }
     
       .swiper-content h3 {
-        font-size: 12px;
+        font-size: 14px;
     
     
       }
     
       .swiper-content h3 > img {
-        width: 1.2rem;
+        width: 1rem;
       }
     
       .swiper-content span {
-        font-size: 11px;
+        font-size: 14px;
         font-weight: 500;
       }
     
       .little-content {
-        font-size: 11px;
+        font-size: 14px;
 
       }
     
