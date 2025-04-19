@@ -798,13 +798,13 @@
     
       .swiper-content h2 {
         max-width: 100%;
-        font-size: 22px;
+        font-size: 28px;
         font-weight: 750;
         margin-top: 0.5rem;
       }
     
       .swiper-content h3 {
-        font-size: 10px;
+        font-size: 14px;
     
     
       }
@@ -814,7 +814,7 @@
       }
     
       .swiper-content span {
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 500;
       }
     
@@ -824,12 +824,12 @@
       }
     
       .little-content span {
-        font-size: 10px;
+        font-size: 12px;
       } 
     
       .text {
         margin-top: 0.5rem;
-        font-size: 10px;
+        font-size: 12px;
         display: none;
       }
 
