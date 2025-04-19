@@ -639,34 +639,6 @@
         font-size: 1rem;
       }
 
-
-
-      
-    /* .pagination { 
-        text-align: center; 
-        margin-bottom: 1rem; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-
-    } */
-
-    /* .pagination button { 
-        margin: 0 5px; 
-        padding: 0.5rem 1rem; 
-        border-radius: 6px;  
-        border: none; 
-        cursor: pointer; 
-        background-color: transparent;
-        
-    }
-
-    .pagination span {
-        color: white;
-        font-family: "Lexend", sans-serif;
-    } */
-
     .page {
         padding: 1rem; 
         max-width: 1400px;
@@ -739,13 +711,15 @@
     font-weight: 900;
     }
 
-    .ovoz {
+    .ovoz strong {
     font-size: 1rem;
-    }
+    color: rgba(255, 255, 255, 0.586);
+    font-weight: 500; 
+        }
 
 
     #extraInfo {
-    margin-top: 1rem;
+    
 
 
     align-items: center;
@@ -1094,6 +1068,110 @@
 
       .bottom-text a {
         font-size: 0.8rem; /* Havolalar shriftini kichikroq qilish */
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem; /* Ichki bo'shliqni kamaytirish */
+      }
+
+      .details img {
+        width: 12rem; /* Rasm o'lchamini kichraytirish */
+        height: 18rem;
+        
+         /* Bo'shliqni kamaytirish */
+      }
+
+      .details h2 {
+        margin-top: 1rem;
+        font-size: 2rem; /* Sarlavha shriftini kichraytirish */
+      }
+
+      .details p {
+        margin-top: 0.8rem;
+        font-size: 0.9rem; /* Matn shriftini kichraytirish */
+      }
+
+      .buttons {
+        flex-direction: column; /* Tugmalarni ustma-ust joylashtirish */
+        gap: 0.8rem; /* Tugmalar orasidagi bo'shliq */
+        
+        margin: 0;
+      }
+
+      .buttons > button {
+        width: 8rem; /* Tugmalar kengligini kichraytirish */
+        height: 2.5rem;
+        font-size: 0.5rem; /* Tugma matni shriftini kichraytirish */
+      }
+
+      .reyting {
+        width: 100%; 
+        height: auto; 
+        align-items: center;
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+      }
+
+      .rat {
+        font-size: 5rem;
+        margin: 0; /* Reyting shriftini kichraytirish */
+        padding: 0;
+        
+      }
+
+      .ovoz {
+        font-size: 0.8rem;
+       
+       /* Ovoz shriftini kichraytirish */
+      }
+
+      .wrapper {
+        flex-direction: column; /* Elementlarni ustma-ust joylashtirish */
+        gap: 2rem; /* Elementlar orasidagi bo'shliq */
+      }
+
+      .qisqacha {
+        width: 100%; /* To'liq kenglikni egallash */
+      }
+
+      .meta {
+       /* Meta ma'lumotlarni ustma-ust joylashtirish */
+        gap: 1rem; /* Elementlar orasidagi bo'shliq */
+        margin: 0.5rem;
+      }
+
+      .meta > p {
+        font-size: 0.8rem; /* Meta matn shriftini kichraytirish */
+      }
+
+      #extraInfo {
+        flex-direction: column; /* Qo'shimcha ma'lumotlarni ustma-ust joylashtirish */
+        gap: 1rem; /* Elementlar orasidagi bo'shliq */
+        margin-top: 1rem;
+      }
+
+      #extraInfo p {
+        font-size: 0.8rem; /* Qo'shimcha matn shriftini kichraytirish */
+      }
+
+      .reyting span {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .ovoz strong {
+        margin-top: 4rem;
       }
     }
 
