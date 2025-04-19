@@ -268,7 +268,7 @@ li {
   }
   
   .p1 {
-    background: url(./images/over.webp) no-repeat center center/cover;
+    background: url(./images/stranger-things.webp) no-repeat center center/cover;
   }
 
   .p2 {
@@ -280,7 +280,7 @@ li {
   }
 
   .p4 {
-    background: url(./images/rick.webp) no-repeat center center/cover;
+    background: url(./images/otkirviqor.webp) no-repeat center center/cover;
   }
 
   .p5 {
@@ -288,7 +288,7 @@ li {
   }
 
   .p6 {
-    background: url(./images/arcane.webp.crdownload) no-repeat center center/cover;
+    background: url(./images/dark.webp) no-repeat center center/cover;
   }
 
   .p7 {
@@ -300,7 +300,7 @@ li {
   }
 
   .p9 {
-    background: url(./images/spiderwebp.webp) no-repeat center center/cover;
+    background: url(./images/harakiri.webp) no-repeat center center/cover;
   }
 
   .p10 {
@@ -308,7 +308,7 @@ li {
   }
 
   .p11 {
-    background: url(./images/lnter.webp) no-repeat center center/cover;
+    background: url(./images/murder.webp) no-repeat center center/cover;
   }
 
   .p12 {
@@ -347,27 +347,27 @@ li {
 
   
   .p19 {
-    background: url(./images/1984.jpg) no-repeat center center/cover;
+    background: url(./images/over.webp) no-repeat center center/cover;
   }
 
   .p20 {
-    background: url(./images/crimeand.jpg) no-repeat center center/cover;
+    background: url(./images/wild.webp) no-repeat center center/cover;
   }
 
   .p21 {
-    background: url(./images/little.jpg) no-repeat center center/cover;
+    background: url(./images/rick.webp) no-repeat center center/cover;
   }
 
   .p22 {
-    background: url(./images/vagabond.jpg) no-repeat center center/cover;
+    background: url(./images/spiderwebp.webp) no-repeat center center/cover;
   }
 
   .p23 {
-    background: url(./images/berserk.jpg) no-repeat center center/cover;
+    background: url(./images/arcane.webp.crdownload) no-repeat center center/cover;
   }
 
   .p24 {
-    background: url(./images/stranger.jpg) no-repeat center center/cover;
+    background: url(./images/theboy.webp) no-repeat center center/cover;
   }
 
   @media (max-width: 768px) {
