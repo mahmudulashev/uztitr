@@ -555,8 +555,6 @@
       
       .details { 
           padding: 1rem; 
-          display: flex;
-          flex-direction: column;
       }
       
       .details img { 
@@ -644,7 +642,7 @@
 
 
       
-    .pagination { 
+    /* .pagination { 
         text-align: center; 
         margin-bottom: 1rem; 
         display: flex;
@@ -652,9 +650,9 @@
         align-items: center;
         gap: 1rem;
 
-    }
+    } */
 
-    .pagination button { 
+    /* .pagination button { 
         margin: 0 5px; 
         padding: 0.5rem 1rem; 
         border-radius: 6px;  
@@ -667,7 +665,7 @@
     .pagination span {
         color: white;
         font-family: "Lexend", sans-serif;
-    }
+    } */
 
     .page {
         padding: 1rem; 
@@ -681,7 +679,7 @@
       align-items: center;
       gap: 4rem;
       margin: 0.9rem;
-      flex-direction: column;
+      /* flex-direction: column; */
     }
 
     .meta> p {
@@ -702,7 +700,7 @@
     .wrapper {
       display: flex;
       gap: 4rem;
-      flex-direction: column;
+      /* flex-direction: column; */
     }
 
     .qisqacha {
