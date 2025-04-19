@@ -793,18 +793,18 @@
         left: 0;
         text-align: left;
         max-width: 365px;
-        margin-left: 2rem;
+        margin-left: 1.8rem;
       }
     
       .swiper-content h2 {
-        max-width: 92%;
-        font-size: 26px;
+        max-width: 100%;
+        font-size: 22px;
         font-weight: 750;
         margin-top: 0.5rem;
       }
     
       .swiper-content h3 {
-        font-size: 14px;
+        font-size: 10px;
     
     
       }
@@ -814,7 +814,7 @@
       }
     
       .swiper-content span {
-        font-size: 14px;
+        font-size: 10px;
         font-weight: 500;
       }
     
