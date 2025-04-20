@@ -54,7 +54,7 @@
 
 
   .off-screen-menu {
-    background-color: #2a2a2a;
+    background-color: #111217;
     width: 75%;
     max-width: 600px;
     position: fixed; 
@@ -142,8 +142,8 @@
     color: white;
     font-size: 1rem;
     text-decoration: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
+    font-family: "Lexend";
+    font-weight: 400;
     padding: 0.3rem;
     display: flex;
     align-items: center;
@@ -165,7 +165,7 @@
     align-items: center;
     justify-content: start;
     gap: 0.8rem;
-    background-color: #0d1951;
+    background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
     padding-right: 6rem;
     padding-left: 1rem;
     padding-top: 0.6rem;
@@ -450,6 +450,7 @@ footer {
 
   .logo {
     margin-left: 0.5rem;
+    font-size: 0.7rem;
   }
 
 
@@ -460,7 +461,7 @@ footer {
     .header-wrapper {
       align-items: center;
       justify-content: space-between;
-      padding: 0.6rem 1rem;
+      padding: 1.4rem 1rem;
     }
   
     .hero {

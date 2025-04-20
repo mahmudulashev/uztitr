@@ -1310,7 +1310,7 @@
 
       .cast-list {
         justify-content: center; 
-        gap: 1rem; 
+        gap: 2rem; 
         margin-left: -0.2rem;
         margin-bottom: 1rem;
       }
