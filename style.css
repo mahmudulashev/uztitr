@@ -55,7 +55,7 @@
 
   .off-screen-menu {
     background-color: #111217;
-    width: 75%;
+    width: 100%;
     max-width: 600px;
     position: fixed; 
     top: 0;
@@ -166,7 +166,7 @@
     justify-content: start;
     gap: 0.8rem;
     background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
-    padding-right: 3rem;
+    padding-right: 6rem;
     padding-left: 1rem;
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
@@ -526,7 +526,7 @@ footer {
       display: flex;
       flex-direction:row;
       gap: 1rem;
-      animation: scrollUp 10s linear infinite;
+      animation: scrollUp 40s linear infinite;
     }
     
     @keyframes scrollUp {
@@ -539,7 +539,7 @@ footer {
     }
   
     .scroll-down .poster-track {
-      animation: scrollDown 80s linear infinite;
+      animation: scrollDown 40s linear infinite;
     }
     
     @keyframes scrollDown {
