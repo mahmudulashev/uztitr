@@ -166,7 +166,7 @@
     justify-content: start;
     gap: 0.8rem;
     background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
-    padding-right: 6rem;
+    padding-right: 3rem;
     padding-left: 1rem;
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
@@ -207,7 +207,10 @@
     font-family: "Bebas Neue", sans-serif;
   }
 
-
+  .off-screen-menu {
+    max-width: 100%;
+    padding: 1rem;
+  }
   
   .hero-left h2 {
     font-size: 4rem;

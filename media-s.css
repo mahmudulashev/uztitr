@@ -229,11 +229,12 @@
         justify-content: start;
         gap: 0.8rem;
         background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
-        padding-right: 6rem;
+        
         padding-left: 1rem;
         padding-top: 0.6rem;
         padding-bottom: 0.6rem;
         border-radius: 5px;
+        width: 15rem;
       }
       
       .ham-menu-ul {
@@ -975,6 +976,7 @@
     
       .off-screen-menu {
         max-width: 100%;
+        padding: 1rem;
       }
     
       .search {
