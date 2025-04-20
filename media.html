@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="website Icon" type="png" href="./images/photo_2023-08-30_21-31-50-fotor-20250417151145.png">
 
-  <!-- FONTS -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
@@ -24,7 +24,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 
-  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <title>Uztitr</title>
@@ -197,8 +196,6 @@
   </div>
 
 
-
-  <!-- === SEARCH === -->
     
 
     <!-- === GENRES === -->
@@ -293,11 +290,6 @@
 
 
 
-
-
-
-  
-  <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
@@ -332,7 +324,7 @@
             { id: 18, name: 'Drama' },
             { id: 10765, name: 'Ilmiy-Fantastik & Fentezi' },
             { id: 80, name: 'Jinoiy' },
-            { id: 'top_rated', name: 'Yuqori Reytingli' } // Yangi janr qo'shildi
+            { id: 'top_rated', name: 'Yuqori Reytingli' }
           ];
           seriesGenres.forEach(genre => renderGenreSection(genre));
         } else {
@@ -387,7 +379,7 @@
       }
 
       function showDetails(item) {
-        console.log('Element:', item); // Elementni konsolda ko'rsatish
+        console.log('Element:', item);
         currentItem = item;
         const title = item.title || item.name;
         const poster = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
@@ -509,7 +501,7 @@
                 genresElement.innerText = genres;
               }
 
-              // Aktyorlar tarkibini qo'shish
+              
               const castContainer = document.createElement('div');
               castContainer.id = 'cast';
               castContainer.innerHTML = `
@@ -522,7 +514,7 @@
               `;
               document.querySelector('.details').appendChild(castContainer);
 
-              const castList = details.credits.cast.slice(0, 8); // Faqat 10 ta aktyorni ko'rsatish
+              const castList = details.credits.cast.slice(0, 8); 
               const castListContainer = castContainer.querySelector('.cast-list');
               castList.forEach(actor => {
                 const actorElement = document.createElement('div');
@@ -588,17 +580,16 @@
         content.style.display = 'flex';
 
         const savedList = JSON.parse(localStorage.getItem(listName)) || [];
-        showList(savedList, listName); // Ro'yxatni ko'rsatish
+        showList(savedList, listName); 
 
-        document.getElementById('pagination').innerHTML = ''; // Paginationni tozalash
+        document.getElementById('pagination').innerHTML = ''; 
       }
 
       function removeFromList(listName, id) {
         let list = JSON.parse(localStorage.getItem(listName)) || [];
-        list = list.filter(item => item.id !== id); // Elementni o'chirish
-        localStorage.setItem(listName, JSON.stringify(list)); // Yangilangan ro'yxatni saqlash
+        list = list.filter(item => item.id !== id);
+        localStorage.setItem(listName, JSON.stringify(list)); 
 
-        // Ro'yxatni qayta ko'rsatish
         if (listName === 'watchlist' || listName === 'seenList') {
           showSavedList(listName);
         }
@@ -671,7 +662,7 @@
       }
 
       function searchAll() {
-        clearTimeout(debounceTimeout); // Oldingi timeoutni tozalash
+        clearTimeout(debounceTimeout); 
 
         debounceTimeout = setTimeout(() => {
           const query = document.getElementById('searchInput').value.trim();
@@ -687,7 +678,7 @@
           content.style.display = 'flex';
           genresContainer.style.display = 'none';
 
-          // `multi-search` endpointini ishlatish
+          
           const url = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=uz`;
 
           fetch(url)
@@ -698,14 +689,14 @@
               return res.json();
             })
             .then(data => {
-              showList(data.results); // Natijalarni ko'rsatish
+              showList(data.results); 
             })
             .catch(err => {
               console.error('Qidiruvda xatolik:', err);
               content.style.display = 'none';
               genresContainer.style.display = 'block';
             });
-        }, 300); // 300ms kechikish
+        }, 300);
       }
 
 
@@ -728,7 +719,7 @@
           prevEl: '.swiper-button-prev',
         },
         autoplay: {
-          delay: 10000, // 20 soniya
+          delay: 10000,
           disableOnInteraction: false, 
         },
       });
@@ -876,28 +867,26 @@
         const content = document.getElementById('content');
         content.className = 'grid';
         content.innerHTML = '';
-        content.style.display = 'none'; // `#content` elementini yashirish
+        content.style.display = 'none'; 
 
         if (window.matchMedia('(min-width: 768px)').matches) {
           const navTom = document.querySelector('.nav-tom');
           if (navTom) {
-            navTom.style.display = 'flex'; // Ekran kengligi 768px yoki undan katta bo'lsa, `nav-tom`ni ko'rsatish
+            navTom.style.display = 'flex'; 
           }
         }
       }
 
       document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function () {
-          // Barcha `a` elementlaridan `active` klassini olib tashlash
+          
           document.querySelectorAll('nav a').forEach(item => item.classList.remove('active'));
-
-          // Bosilgan elementga `active` klassini qo'shish
           this.classList.add('active');
         });
       });
 
       document.querySelector('.search-btn').addEventListener('click', event => {
-        event.preventDefault(); // Standart harakatni to'xtatish
+        event.preventDefault();
 
         const navTom = document.querySelector('.nav-tom');
         const swiper = document.querySelector('.swiper');
@@ -905,17 +894,17 @@
         const content = document.getElementById('content');
         const search = document.querySelector('.search');
 
-        // Barcha elementlarni yashirish
+       
         navTom.style.display = 'none';
         swiper.style.display = 'none';
         genresContainer.style.display = 'none';
         content.style.display = 'none';
 
-        // Faqat qidiruv maydonini ko'rsatish
+        
         search.style.display = 'flex';
       });
 
-      // Foydalanuvchi boshqa bo'limga o'tganda yoki saytni yangilaganda qidiruvni yashirish
+     
       document.addEventListener('click', event => {
         const search = document.querySelector('.search');
         const navTom = document.querySelector('.nav-tom');
@@ -924,13 +913,13 @@
         const content = document.getElementById('content');
         const button = document.querySelector('.svg1');
 
-        button.style.color = '#141414' // Qidiruv tugmasini yashirish
-        // Agar foydalanuvchi qidiruv maydonidan tashqarida bossa 
+        button.style.color = '#141414' 
+        
 
-        // Agar foydalanuvchi boshqa tugma yoki havolani bossa
+        
         if (!event.target.closest('.search') && !event.target.closest('.search-btn')) {
-          search.style.display = 'none'; // Qidiruvni yashirish
-          //navTom.style.display = 'flex'; // Navigatsiyani qayta ko'rsatish
+          search.style.display = 'none';
+          //navTom.style.display = 'flex'; 
           button.style.color = 'white'
           // swiper.style.display = 'block'; 
          // genresContainer.style.display = 'block'; 
@@ -938,7 +927,7 @@
         }
       });
 
-      // Saytni yangilaganda qidiruvni yashirish
+     
       window.addEventListener('load', () => {
         const search = document.querySelector('.search');
         search.style.display = 'none';
@@ -959,12 +948,12 @@
           return;
         }
 
-        // Reytingni localStorage-ga saqlash
+        
         const userRatings = JSON.parse(localStorage.getItem('userRatings')) || {};
         userRatings[itemId] = userRating;
         localStorage.setItem('userRatings', JSON.stringify(userRatings));
 
-        // Reytingni ko'rsatish
+        
         const userRatingValue = document.getElementById('userRatingValue');
         userRatingValue.innerText = userRating;
 
@@ -976,7 +965,7 @@
         return userRatings[itemId] || 'Noma\'lum';
       }
 
-      // Reytingni yuklash
+      
       document.addEventListener('DOMContentLoaded', () => {
         const userRatingValue = document.getElementById('userRatingValue');
         const userRating = getUserRating(currentItem.id);

@@ -1,5 +1,4 @@
-/* GENERAL */
-    *, html {
+ *, html {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -15,6 +14,12 @@
         min-height: 100vh;
         margin: 0;
     }
+
+    
+    main {
+        flex: 1; 
+    }
+
 
 
     @font-face {
@@ -115,7 +120,7 @@
         background-color: #2a2a2a;
         width: 75%;
         max-width: 600px;
-        position: fixed; /* Menyuni ekranga mahkamlang */
+        position: fixed; 
         top: 0;
         right: -600px;
         display: flex;
@@ -124,8 +129,8 @@
         justify-content: start;
         transition: 0.3s ease;
         height: 100vh;
-        z-index: 1000; /* Boshqa elementlardan ustun qilish */
-        overflow-y: auto; /* Menyu ichida skrollni yoqish */
+        z-index: 1000; 
+        overflow-y: auto; 
       }
       
       
@@ -139,12 +144,11 @@
       }
       
       .nav-bar {
-        width: 100%; /* To'liq kenglikni egallaydi */
-        z-index: 1000; /* Boshqa elementlardan ustun qilish */
+        width: 100%; 
+        z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        /* padding: 1rem 2rem; */
         position: sticky;
         
       }
@@ -552,6 +556,8 @@
           height: 1rem; 
           color: white; 
       }
+
+    /* === Details === */
       
       .details { 
           padding: 1rem; 
@@ -676,66 +682,61 @@
     .wrapper {
       display: flex;
       gap: 4rem;
-      /* flex-direction: column; */
     }
 
     .qisqacha {
-    width: 50%;
+      width: 50%;
     }
 
     .reyting {
-    background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 18rem;
-    height: auto;
-    margin-top: -6.5rem;
-    padding: 2rem 1rem;
-    border-radius: 17px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 30px #3d3d5c;
+      background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 18rem;
+      height: auto;
+      margin-top: -6.5rem;
+      padding: 2rem 1rem;
+      border-radius: 17px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 30px #3d3d5c;
     }
 
     .reyting span {
       display: flex;
-      flex-direction: column; /* Elementlarni yonma-yon joylashtirish */
-      align-items: center; /* Vertikal markazlash */
+      flex-direction: column; 
+      align-items: center;
     }
 
     .reyyy h3,
     .reyyy p {
       text-align: center;
-      margin: 0; /* Ichki bo'shliqlarni olib tashlash */
-      padding: -05rem; /* Tashqi bo'shliqlarni olib tashlash */
+      margin: 0; 
+      padding: -05rem; 
     }
 
     .reyting strong {
-    color: white;
-    font-weight: 700;
+      color: white;
+      font-weight: 700;
     }
 
     .reyting p {
-    color: white;
-    text-align: center;
+      color: white;
+      text-align: center;
     }
 
     .rat {
-    font-size: 5.4rem;
-    font-weight: 900;
+      font-size: 5.4rem;
+      font-weight: 900;
     }
 
     .ovoz strong {
-    font-size: 1rem;
-    font-weight: 500; 
-        }
+      font-size: 1rem;
+      font-weight: 500; 
+    }
 
 
     #extraInfo {
-    
-
-
     align-items: center;
     gap: 4rem;
     display: flex;
@@ -759,8 +760,6 @@
     .hech {
       color: white;
     }
-
-    
 
     .user-rating {
       margin-top: 1rem;
@@ -789,6 +788,70 @@
       font-size: 0.9rem;
     }
 
+    #cast {
+      margin-top: 6rem;
+      max-width: 1200px;
+
+    }
+
+    #cast > h3 {
+      margin-bottom: 1rem;
+    }
+    
+    .cast-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-left: 1rem; 
+    }
+    
+    .actor {
+      text-align: center;
+      width: 120px;
+      height: 180px; 
+    }
+    
+    .actor img {
+      width: 100%;
+      height: 150px; 
+      border-radius: 10px;
+      object-fit: cover; 
+    }
+    
+    .actor p {
+      margin-top: 0.3rem; 
+      font-size: 0.8rem; 
+      color: white;
+    }
+
+    #userRatingSelect {
+      padding: 8px 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #0d1951;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: "LEXEND";
+      margin-bottom: 0.3rem;
+    }
+    
+    #userRatingSelect:hover {
+      border-color: #888;
+      background-color: #0d1951;
+    }
+    
+    #userRatingSelect:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+
+
+    /* ====FOOTER==== */
+
 
     footer {
       background-color: #0b0b0b;
@@ -809,8 +872,6 @@
       padding-top: 4rem;
       flex-wrap: wrap;
     }
-
-
 
     .foot-box > h2 {
       color: white;
@@ -888,68 +949,6 @@
       font-size: 14px;
     }
 
-    #cast {
-      margin-top: 6rem;
-      max-width: 1200px;
-
-    }
-
-    #cast > h3 {
-      margin-bottom: 1rem;
-    }
-    
-    .cast-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-left: 1rem; /* Bo'shliqni kamaytirish */
-    }
-    
-    .actor {
-      text-align: center;
-      width: 120px; /* Kichikroq kenglik */
-      height: 180px; /* Kichikroq balandlik */
-    }
-    
-    .actor img {
-      width: 100%;
-      height: 150px; /* Rasm balandligini moslashtirish */
-      border-radius: 10px;
-      object-fit: cover; /* Rasmni konteynerga sig'dirish */
-    }
-    
-    .actor p {
-      margin-top: 0.3rem; /* Matn ustidagi bo'shliqni kamaytirish */
-      font-size: 0.8rem; /* Matn shriftini kichraytirish */
-      color: white;
-    }
-
-    #userRatingSelect {
-      padding: 8px 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background: #0d1951;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: "LEXEND";
-      margin-bottom: 0.3rem;
-    }
-    
-    #userRatingSelect:hover {
-      border-color: #888;
-      background-color: #0d1951;
-    }
-    
-    #userRatingSelect:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-    
-
-
     /* RESPONSIV */
     @media (max-width: 768px) {
       .nav-tom {
@@ -992,14 +991,14 @@
        .swiper {
         padding: 0 0.7rem;
         width: 24rem;
-        height: 250px; /* Telefon uchun balandlikni moslashtirish */
-        overflow: hidden; /* Sig'magan joylarni kesib tashlash */
+        height: 250px; 
+        overflow: hidden;
       }
      
       .swiper-slide img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Telefon uchun rasmni kesib tashlash */
+        object-fit: cover; 
         border-radius: 8px;
       }
     
@@ -1088,129 +1087,127 @@
 
       .foot-content {
         display: flex;
-        flex-wrap: wrap; /* Elementlarni o'rash */
-        justify-content: center; /* Markazga joylashtirish */
-        gap: 1.5rem; /* Elementlar orasidagi bo'shliq */
-        /* Ichki bo'shliqni moslashtirish */
+        flex-wrap: wrap;
+        justify-content: center; 
+        gap: 1.5rem; 
+        
       }
 
       .foot-box {
-        width: 45%; /* Har bir foot-box kengligi */
-         /* Matnni markazga joylashtirish */
+        width: 45%; 
+        
       }
 
       .foot-box > h2 {
-        font-size: 1rem; /* Kichikroq shrift */
-        margin-bottom: 0.5rem; /* Sarlavha ostidagi bo'shliqni kamaytirish */
+        font-size: 1rem; 
+        margin-bottom: 0.5rem; 
       }
 
       .foot-box > ul {
-        gap: 0.3rem; /* Havolalar orasidagi bo'shliqni kamaytirish */
+        gap: 0.3rem; 
       }
 
       .foot-box > ul > li > a {
-        font-size: 0.9rem; /* Havolalar shriftini kichikroq qilish */
+        font-size: 0.9rem; 
       }
 
       footer {
         
         margin-top: 3rem;
-        padding: 1.5rem 0.5rem; /* Telefon uchun moslashtirilgan padding */
-        /* Markazga joylashtirish */
+        padding: 1.5rem 0.5rem; 
+      
       }
 
       .footer-wrapper {
-         /* Elementlarni ustma-ust joylashtirish */
+         
         align-items: center;
-        gap: 1.5rem; /* Elementlar orasidagi bo'shliq */
+        gap: 1.5rem; 
       }
 
       .foot-content {
-         /* Telefon uchun ustma-ust joylashtirish */
+         
         justify-content: center;
-        gap: 1.5rem; /* Elementlar orasidagi bo'shliq */
-        padding: 1rem; /* Ichki bo'shliqni moslashtirish */
+        gap: 1.5rem; 
+        padding: 1rem;
       }
 
       .foot-box > h2 {
-        font-size: 1rem; /* Kichikroq shrift */
-        margin-bottom: 0.5rem; /* Sarlavha ostidagi bo'shliqni kamaytirish */
+        font-size: 1rem;
+        margin-bottom: 0.5rem; 
       }
 
       .foot-box > ul {
-        gap: 0.3rem; /* Havolalar orasidagi bo'shliqni kamaytirish */
+        gap: 0.3rem; 
       }
 
       .foot-box > ul > li > a {
-        font-size: 0.9rem; /* Havolalar shriftini kichikroq qilish */
+        font-size: 0.9rem; 
       }
 
       .socials {
         display: flex;
         justify-content: center;
-        gap: 1rem; /* Ijtimoiy tarmoqlar orasidagi bo'shliq */
+        gap: 1rem;
       }
 
       .socials > a > svg {
-        width: 2.5rem; /* Ijtimoiy tarmoq ikonkalari o'lchami */
+        width: 2.5rem; 
         height: 2.5rem;
       }
 
       .line {
-        margin-top: 2rem; /* Chiziqning yuqori bo'shlig'ini kamaytirish */
+        margin-top: 2rem;
       }
 
       .bottom {
-        flex-direction: column; /* Telefon uchun ustma-ust joylashtirish */
-        gap: 0.5rem; /* Elementlar orasidagi bo'shliq */
+        flex-direction: column;
+        gap: 0.5rem; 
       }
 
       .bottom h2 {
-        font-size: 0.8rem; /* Kichikroq shrift */
+        font-size: 0.8rem; 
       }
 
   
 
       .bottom-text a {
-        font-size: 0.8rem; /* Havolalar shriftini kichikroq qilish */
+        font-size: 0.8rem; 
       }
 
       .details {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0.5rem; /* Ichki bo'shliqni kamaytirish */
+        padding: 0.5rem; 
         margin-left: 0;
       }
 
       .details img {
-        width: 12rem; /* Rasm o'lchamini kichraytirish */
+        width: 12rem;
         height: 18rem;
-        
-         /* Bo'shliqni kamaytirish */
       }
 
       .details h2 {
         margin-top: 1rem;
-        font-size: 2rem; /* Sarlavha shriftini kichraytirish */
+        font-size: 2rem; 
       }
 
       .details p {
         margin-top: 0.8rem;
-        font-size: 0.9rem; /* Matn shriftini kichraytirish */
+        font-size: 0.9rem; 
       }
 
       .buttons {
-       flex-direction: row; /* Tugmalarni ustma-ust joylashtirish */
-        gap: 0.8rem; /* Tugmalar orasidagi bo'shliq */
+       flex-direction: row; 
+        gap: 0.8rem; 
         padding-bottom: 1rem;
         margin: 0;
       }
 
       .buttons > button {
-        width: 9.5rem; /* Tugmalar kengligini kichraytirish */
+        width: 9.5rem; 
         height: 2.5rem;
-        font-size: 0.7rem; /* Tugma matni shriftini kichraytirish */
+        font-size: 0.7rem; 
       }
 
       .reyting {
@@ -1228,44 +1225,40 @@
 
       .rat {
         font-size: 4rem;
-        margin: 0; /* Reyting shriftini kichraytirish */
+        margin: 0; 
         padding: 0;
         
       }
 
       .ovoz {
         font-size: 0.8rem;
-       
-       /* Ovoz shriftini kichraytirish */
       }
 
       .wrapper {
-        flex-direction: column; /* Elementlarni ustma-ust joylashtirish */
-        gap: 2rem; /* Elementlar orasidagi bo'shliq */
+        flex-direction: column;
+        gap: 2rem;
       }
 
       .qisqacha {
-        width: 100%; /* To'liq kenglikni egallash */
+        width: 100%; 
       }
 
       .meta {
-       /* Meta ma'lumotlarni ustma-ust joylashtirish */
-        gap: 1rem; /* Elementlar orasidagi bo'shliq */
+        gap: 1rem; 
         margin: 0.5rem;
       }
 
       .meta > p {
-        font-size: 0.8rem; /* Meta matn shriftini kichraytirish */
+        font-size: 0.8rem; 
       }
 
       #extraInfo {
-        /* Qo'shimcha ma'lumotlarni ustma-ust joylashtirish */
-        gap: 1rem; /* Elementlar orasidagi bo'shliq */
+        gap: 1rem; 
         margin-top: 1rem;
       }
 
       #extraInfo p {
-        font-size: 0.8rem; /* Qo'shimcha matn shriftini kichraytirish */
+        font-size: 0.8rem; 
       }
 
       .reyting span {
@@ -1298,42 +1291,37 @@
       }
 
       #cast {
-        margin-top: 1.5rem; /* Bo'shliqni kamaytirish */
-        text-align: center; /* Markazga joylashtirish */
+        margin-top: 1.5rem;
+        text-align: center; 
       }
 
       .cast-list {
-        justify-content: center; /* Aktyorlarni markazga joylashtirish */
-        gap: 1rem; /* Elementlar orasidagi bo'shliqni kamaytirish */
-        margin-left: -1.1rem; /* Chap bo'shliqni olib tashlash */
+        justify-content: center; 
+        gap: 1rem; 
+        margin-left: -1.1rem; 
         margin-bottom: 1rem;
       }
 
       .actor {
-        width: 80px; /* Kichikroq kenglik */
-        height: 120px; /* Kichikroq balandlik */
+        width: 80px;
+        height: 120px;
         margin-bottom: 0.5rem;
       }
 
       .actor img {
         width: 100%;
-        height: 100px; /* Rasm balandligini moslashtirish */
-        border-radius: 8px; /* Rasm burchaklarini yumaloqlash */
+        height: 100px; 
+        border-radius: 8px; 
         margin-bottom: 0.4rem;
       }
 
       .actor p {
-        font-size: 0.7rem; /* Matn shriftini kichraytirish */
-        margin-top: 1rem; /* Matn ustidagi bo'shliqni kamaytirish */
+        font-size: 0.7rem; 
+        margin-top: 1rem;
       }
 
       .details h2 {
         max-width: 100%;
       }
     }
-
-/* Asosiy kontentni footer ustida joylashtirish */
-main {
-  flex: 1; /* Kontentni kengaytirib, footerni pastga surish */
-}
 
