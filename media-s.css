@@ -1113,6 +1113,7 @@
       }
 
       footer {
+        
         margin-top: 3rem;
         padding: 1.5rem 0.5rem; /* Telefon uchun moslashtirilgan padding */
         /* Markazga joylashtirish */
@@ -1220,7 +1221,7 @@
         padding: 1rem 2rem;
         border-radius: 10px;
         display: flex;
-        
+        margin-left: -0.5rem;
         justify-content: space-between;
 
       }
@@ -1297,14 +1298,14 @@
       }
 
       #cast {
-        margin-top: 1rem; /* Bo'shliqni kamaytirish */
+        margin-top: 1.5rem; /* Bo'shliqni kamaytirish */
         text-align: center; /* Markazga joylashtirish */
       }
 
       .cast-list {
         justify-content: center; /* Aktyorlarni markazga joylashtirish */
         gap: 1rem; /* Elementlar orasidagi bo'shliqni kamaytirish */
-        margin-left: 0; /* Chap bo'shliqni olib tashlash */
+        margin-left: -1.1rem; /* Chap bo'shliqni olib tashlash */
         margin-bottom: 1rem;
       }
 
