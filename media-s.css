@@ -964,7 +964,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2rem 0.76rem;
+        padding: 2rem 1rem;
         
       }
 
@@ -992,9 +992,9 @@
       
     
        .swiper {
-        padding: 0 0;
-        width: 22rem;
-        height: 250px; 
+        padding: 0 0.5rem;
+        width: fill;
+        height: 220px; 
         overflow: hidden;
       }
      
@@ -1016,7 +1016,7 @@
 
 
       .swiper-content {
-        top: 6rem;
+        top: 3.9rem;
         left: 0;
         text-align: left;
         max-width: 365px;
