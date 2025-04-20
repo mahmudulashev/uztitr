@@ -135,7 +135,7 @@ function showDetails(item) {
               <option value="0">Tanlang</option>
               ${[...Array(10).keys()].map(i => `<option value="${i + 1}">${i + 1}</option>`).join('')}
             </select>
-            <p id="userRatingDisplay">Reytingingiz: <strong id="userRatingValue">Noma'lum</strong></p>
+            <p id="userRatingDisplay">Reytingingiz: <br><strong id="userRatingValue">Noma'lum</strong></p>
           </div></span>
           <div class="buttons">
             <button class="watchlist" onclick="addToList('watchlist')"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
