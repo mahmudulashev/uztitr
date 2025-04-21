@@ -1201,6 +1201,7 @@
       .details h2 {
         margin-top: 1rem;
         font-size: 2rem; 
+        text-align: center;
       }
 
       .details p {
