@@ -96,6 +96,8 @@ function showDetails(item) {
   const rating = item.vote_average ? item.vote_average.toFixed(1) : 'Noma’lum';
   const votes = item.vote_count || '0';
 
+
+
   document.querySelector('.swiper').style.display = 'none';
   document.getElementById('genres-container').style.display = 'none';
 
@@ -241,6 +243,10 @@ if (rating !== 'Noma’lum') {
   } else {
     console.error('ID mavjud emas');
   }
+
+
+  document.getElementById("userRatingValue").textContent = getSavedRating(item.id) || "Noma'lum";
+  document.getElementById("userRatingSelect").value = getSavedRating(item.id) || "0";
 }
 
 function saveRating() {
@@ -645,30 +651,26 @@ document.querySelector('.hamburger').addEventListener('click', event => {
 });
 
 function saveUserRating(itemId) {
-  const userRatingSelect = document.getElementById('userRatingSelect');
-  const userRating = userRatingSelect.value;
+  const select = document.getElementById("userRatingSelect");
+  const rating = select.value;
 
-  if (userRating === '0') {
-    alert('Iltimos, reyting tanlang!');
-    return;
+  if (rating !== '0') {
+    const savedRatings = JSON.parse(localStorage.getItem("userRatings")) || {};
+    savedRatings[itemId] = rating;
+    localStorage.setItem("userRatings", JSON.stringify(savedRatings));
+
+    // Reytingni yangilash
+    document.getElementById("userRatingValue").textContent = rating;
   }
-
-  
-  const userRatings = JSON.parse(localStorage.getItem('userRatings')) || {};
-  userRatings[itemId] = userRating;
-  localStorage.setItem('userRatings', JSON.stringify(userRatings));
-
-  
-  const userRatingValue = document.getElementById('userRatingValue');
-  userRatingValue.innerText = userRating;
-
-  alert('Reytingingiz saqlandi!');
 }
 
-function getUserRating(itemId) {
-  const userRatings = JSON.parse(localStorage.getItem('userRatings')) || {};
-  return userRatings[itemId] || 'Noma\'lum';
+function getSavedRating(itemId) {
+  const savedRatings = JSON.parse(localStorage.getItem("userRatings")) || {};
+  return savedRatings[itemId];
 }
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
