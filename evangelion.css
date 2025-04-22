@@ -299,7 +299,20 @@ svg {
   }
 
 
-
+  .goBack {
+    padding: 0.6rem 0.9rem;
+    background-color: transparent;
+    color: white;
+    cursor:pointer;
+    border: none;
+    font-family: "DM Sans";
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rems;
+    font-size: 1rem;
+  }
  
 
   .video {

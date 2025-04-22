@@ -506,6 +506,19 @@ svg {
       font-size: 0.8rem; 
     }
 
+    .container {
+        padding: 0.5rem 1rem;
+    }
+
+    .container h2 {
+        font-size: 1.16rem;
+    }
+
+    .card {
+        width: 10rem;
+        height: 15rem;
+    }
+
  
 
 }
