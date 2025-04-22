@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +27,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <title>Uztitr</title>
-  <link rel="stylesheet" href="./film-1.css">
+  <link rel="stylesheet" href="./film.css">
 
 </head>
 <body>
@@ -94,17 +93,39 @@
     </div> 
   </header>
 
+
   <div class="container">
-    <h2>O'zbekcha subtitrdagi film & seriallar</h2>
-    <div class="card">
-        <img src="./images/eva.webp" alt="">
+
+    <div class="episodes">
+        <h2>Epizodlar:</h2>
+
+        <div class="episode">
+          <button class="btn" onclick="showVideo('video1')">1. Farishta hujumi</button>
+          <button class="btn" onclick="showVideo('video2')">2. Mahluq</button>
+          <button class="btn" onclick="showVideo('video3')">3. O'tkazma</button>
+        </div>
     </div>
+
+    <div class="video">
+      <video class="video1" controls><source src="https://pub-71f1bd2d915347da86041b43a497745d.r2.dev/1x1-qwerty.mp4" type="video/mp4"> Sizning bruzer</video>
+      <video class="video2" controls><source src="https://pub-71f1bd2d915347da86041b43a497745d.r2.dev/1x2.mp4" type="video/mp4"> Sizning bruzer</video>
+      <video class="video3" controls><source src="https://pub-71f1bd2d915347da86041b43a497745d.r2.dev/1x2.mp4" type="video/mp4"> Sizning bruzer</video>
+    </div>
+
+    <div class="content">
+
+          <span><h2>Evangelion Ibtidosi</h2>
+          <h3>Ilmiy-Fantastik | Triller | <img src="./images/Vector (4).png" alt=""> 8.6 | 18+</h3> </span>
+          <p>Evangelion Ibtidosi – bu oddiy mecha anime emas, balki inson psixologiyasi, depressiya va falsafiy savollarni o‘rganadigan murakkab asar. 1995-yilda chiqarilgan bu anime Hideaki Anno tomonidan yaratilgan bo‘lib, u mecha janridagi odatiy qahramonlik tasvirlarini butunlay o‘zgartirdi.
+
+          Hikoya 14 yoshli Shinji Ikari atrofida kechadi, u NERV tashkiloti tomonidan chaqirilib, ulkan Evangelion robotini boshqarishga majbur bo‘ladi. U insoniyatni sirli “farishtalar” hujumidan himoya qilishi kerak, ammo bu jarayon uni ruhiy sinovlardan o‘tkazadi. Bu anime shunchaki tomosha uchun emas – u inson ruhiyatini o‘rganish, o‘zlikni anglash va chuqur ma’noli savollarni ko‘tarish uchun yaratilgan san’at asaridir.
+          </p>
+    </div>
+
+
   </div>
 
-
-
 </main>
-
 
 
   <footer>
@@ -169,6 +190,33 @@
 
   <script src="./main1.js"></script>
 
+
+  
+
+    <script>
+      function showVideo(className) {
+        const allVideos = document.querySelectorAll('.video1, .video2, .video3');
+        allVideos.forEach(video => {
+          video.style.display = 'none';
+        });
+      
+        const selectedVideo = document.querySelector('.' + className);
+        if (selectedVideo) {
+          selectedVideo.style.display = 'block';
+        }
+      }
+
+      const buttons = document.querySelectorAll('.btn');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active')); 
+          btn.classList.add('active'); 
+        });
+      });
+
+      
+      </script>
       
    
     

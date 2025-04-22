@@ -1,0 +1,515 @@
+*, html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #141414;
+    font-family: "Lexend", sans-serif;
+    background: url(../images/upcoming-bg.png);
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+main {
+    flex: 1; 
+}
+
+
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('./fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+    font-style: normal;
+  }
+  
+
+
+/* VECTOR */
+
+svg {
+    width: 1rem;
+    height: 1rem;
+    color: white;
+}
+
+
+/* HEADER */
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .svgg {
+    color: #007bff;
+  }
+
+  .logo {
+    font-family: "Unbounded", sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 900;
+  }
+
+  .logo a {
+    text-decoration: none;
+    color: white;
+  }
+
+  .nav-tom {
+    display: flex;
+    width: 568px;
+    height: 75px;
+    background-color: #0f0f0f;
+    border-radius: 15px;
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border: 5px solid #1a1a1a;
+
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: 200;
+    font-family: "Lexend", sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  nav a.active {
+    background-color: #1a1a1a;
+    color: white; 
+    border-radius: 5px; 
+  }
+
+
+  .search-btn {
+    margin-left: 14rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .search-btn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
+  }
+
+
+
+
+  /* ==== HEADER ==== */
+
+  .off-screen-menu {
+    background-color: #111217;
+    width: 75%;
+    max-width: 600px;
+    position: fixed; 
+    top: 0;
+    right: -600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    transition: 0.3s ease;
+    height: 100%;
+    z-index: 1000; 
+    overflow-y: auto; 
+  }
+  
+  
+  .off-screen-menu.active {
+    right: 0;
+  }
+  
+  .hamburger {
+    display: none;
+    
+  }
+  
+  .nav-bar {
+    width: 100%; 
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    
+  }
+  
+  
+  
+  /* ham menu */
+  .ham-menu {
+    height: 40px;
+    width: 30px;
+    position: relative;
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+  }
+  
+  .ham-menu:hover {
+    transform: scale(1.1); 
+  }
+  
+  .ham-menu span {
+    height: 2.5px; 
+    width: 90%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s ease;
+  }
+  
+  .ham-menu span:nth-child(1) {
+    top: 25%;
+  }
+  .ham-menu span:nth-child(3) {
+    top: 75%;
+  }
+  .ham-menu.active span {
+    background-color: white;
+  }
+  .ham-menu.active span:nth-child(1) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .ham-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .ham-menu.active span:nth-child(3) {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+  
+  .ham-menu-ul li > a {
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    font-family: "Lexend";
+    font-weight: 400;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.3s ease;
+    
+  }
+
+  .ham-menu-ul li > a > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
+  }
+  
+  .ham-menu-ul li  {
+    list-style: none;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, #2e2e42, #424272, #28283b);
+    
+    padding-left: 1rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-radius: 5px;
+    width: 15rem;
+  }
+  
+  .ham-menu-ul {
+    margin-top: 8rem;
+  }
+
+
+  /*  */
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .container h2 {
+    color: white;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+  }
+
+.card { 
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+        cursor: pointer; 
+        width: 14.4rem;
+        height: 21.6rem;
+        border-radius: 10px;
+    }
+    
+    .card img { 
+        width: 100%; 
+        height: 100%;
+        object-fit: cover; 
+        border-radius: 10px;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+  /* FOOTER */
+
+  footer {
+    background-color: #0b0b0b;
+    color: white;
+    margin-top: 120px;
+    padding: 1.5rem 0.5rem;
+    width: 100%; 
+  }
+  .footer-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .foot-content {
+    display: flex;
+
+    justify-content: space-between;
+    padding-top: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .foot-box > h2 {
+    color: white;
+    font-size: 19px;
+    font-family: "DM Sans";
+    font-weight: 400;
+    margin-bottom: 0.9rem;
+  }
+
+  .foot-box > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .foot-box > ul > li {
+    background: none;
+    list-style: none;
+  }
+
+  .foot-box > ul > li > a {
+    text-decoration: none;
+    color: #858585;
+    font-family: "DM Sans";
+    font-size: 16px;
+  }
+
+  .foot-box > ul > li > a:hover {
+    color: white;
+  }
+
+  .socials > a > svg {
+    width: 3rem;
+    height: 3rem;
+    background-color: #2e2e2e;
+    padding: 0.6rem;
+    border-radius: 7px;
+    
+  }
+
+  .line {
+    margin-top: 4rem;
+   
+    width: 100%;
+    height: 2px;
+    background-color: #2e2e2e;
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .bottom h2 {
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-weight: 300;
+    color: #858585;
+  }
+
+  .bottom-text a {
+    text-decoration: none;
+    color: #858585;
+    font-family: "DM Sans";
+    font-size: 14px;
+  }
+
+  .bottom-text span {
+
+    color: #858585;
+    font-family: "DM Sans";
+    font-size: 14px;
+  }
+
+
+
+
+
+
+
+   /* RESPONSIV */
+   @media (max-width: 768px) {
+    .nav-tom {
+      display: none;
+    }
+  
+    .hamburger {
+      display: block;
+      /* margin-right: -1.4rem; */
+    }
+
+    .header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 1rem;
+      
+    }
+
+    .logo {
+      font-size: 0.6rem;
+      margin-left: 0.5rem;
+    }
+  
+    .off-screen-menu {
+      max-width: 100%;
+      padding: 1rem;
+    }
+  
+    .search {
+      width: 80%;
+      max-width: 80%;
+      position: absolute;
+    }
+
+    .search-btn {
+      display: none;
+    }
+
+    .foot-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; 
+      gap: 1.5rem; 
+      
+    }
+
+    .foot-box {
+      width: 45%; 
+      
+    }
+
+    .foot-box > h2 {
+      font-size: 1rem; 
+      margin-bottom: 0.5rem; 
+    }
+
+    .foot-box > ul {
+      gap: 0.3rem; 
+    }
+
+    .foot-box > ul > li > a {
+      font-size: 0.9rem; 
+    }
+
+    footer {
+      
+      margin-top: 3rem;
+      padding: 1.5rem 0.5rem; 
+    
+    }
+
+    .footer-wrapper {
+       
+      align-items: center;
+      gap: 1.5rem; 
+    }
+
+    .foot-content {
+       
+      justify-content: center;
+      gap: 1.5rem; 
+      padding: 1rem;
+    }
+
+    .foot-box > h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem; 
+    }
+
+    .foot-box > ul {
+      gap: 0.3rem; 
+    }
+
+    .foot-box > ul > li > a {
+      font-size: 0.9rem; 
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .socials > a > svg {
+      width: 2.5rem; 
+      height: 2.5rem;
+    }
+
+    .line {
+      margin-top: 2rem;
+    }
+
+    .bottom {
+      flex-direction: column;
+      gap: 0.5rem; 
+    }
+
+    .bottom h2 {
+      font-size: 0.8rem; 
+    }
+
+
+
+    .bottom-text a {
+      font-size: 0.8rem; 
+    }
+
+ 
+
+}
+
+
+
+  
