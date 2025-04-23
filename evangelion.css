@@ -302,6 +302,8 @@ svg {
     text-decoration: none;
   }
 
+
+
   .goBack {
     padding: 0.6rem 0.9rem;
     background-color: transparent;
@@ -317,6 +319,10 @@ svg {
     font-size: 1rem;
     margin-left: 1rem;
 
+  }
+
+  .content a {
+    text-decoration: none;
   }
  
 
