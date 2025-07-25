@@ -2,7 +2,7 @@
 
 
 
-const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d'; 
+const API_KEY = 'c31fbe3cd0f434bf9aa13ca577150f7d'; //Bilaman tupoyman, backendim yo'q nima qilay
 let currentCategory = 'movies';
 let currentPage = 1;
 let totalPages = 1;
